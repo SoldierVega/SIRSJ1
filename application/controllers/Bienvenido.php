@@ -32,6 +32,8 @@ class Bienvenido extends CI_Controller {
         $data['user'] = '';
         $data['pwd'] = '';
         $this->load->view('/templates/header', $data);
+        $this->load->view('/inicio/inicio.php', $data);
+        $this->load->view('templates/copyright',$data);
     }
     
     public function index(){
