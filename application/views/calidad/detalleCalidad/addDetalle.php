@@ -11,7 +11,7 @@
                     <div> 
                                     <div class="input-group">
                                             <label for="text">Id Calidad</label>
-                                            <input   type="number" class="form-control" name="idCalidad"
+                                            <input   type="number" class="hidden" name="idCalidad"
                                                      value="<?php echo $da->idCalidad; ?>">
                                     </div><br>
 

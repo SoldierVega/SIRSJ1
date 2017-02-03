@@ -39,7 +39,7 @@
     <![endif]-->
 
     
-     <script src="<?php echo base_url() . 'media/vendor/jquery/jquery.min.js' ?>" type="text/javascript"></script>
+    <script src="<?php echo base_url() . 'media/vendor/jquery/jquery.min.js' ?>" type="text/javascript"></script>
     <script src="<?php echo base_url() . 'media/vendor/bootstrap/js/bootstrap.min.js' ?>" type="text/javascript"></script>
     <script src="<?php echo base_url() . 'media/vendor/metisMenu/metisMenu.min.js' ?>" type="text/javascript"></script>
     <script src="<?php echo base_url() . 'media/vendor/datatables/js/jquery.dataTables.min.js' ?>" type="text/javascript"></script>
@@ -49,10 +49,7 @@
     <script src="<?php echo base_url() . 'media/vendor/morrisjs/morris.min.js' ?>" type="text/javascript"></script>
     <script src="<?php echo base_url() . 'media/dist/js/sb-admin-2.js' ?>" type="text/javascript"></script>
     
-    <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
    
     
     

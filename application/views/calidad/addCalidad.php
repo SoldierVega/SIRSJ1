@@ -1,4 +1,3 @@
-<script src="<?php echo "$base/$jquery"; ?>"></script>
 <script type="text/javascript">
     $(document).ready(function (){
         $("#tripulacion").change(function (){
@@ -50,28 +49,6 @@
                formato = $('#formato').val();
                $.post("http://localhost/SIRSJ1/calidad/getFormato",{
                    formato: formato
-               });
-           }); 
-        });
-    });
-    
-    $(document).ready(function (){
-        $("#causa").change(function (){
-           $("#causa option:selected").each(function (){
-               causa = $('#causa').val();
-               $.post("http://localhost/SIRSJ1/calidad/getCausa",{
-                   causa: causa
-               });
-           }); 
-        });
-    });
-    
-    $(document).ready(function (){
-        $("#tipo").change(function (){
-           $("#tipo option:selected").each(function (){
-               tipo = $('#tipo').val();
-               $.post("http://localhost/SIRSJ1/calidad/getTipo",{
-                   tipo: tipo
                });
            }); 
         });

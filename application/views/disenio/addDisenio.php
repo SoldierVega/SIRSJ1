@@ -1,7 +1,3 @@
-<script src="<?php echo "$base/$jquery"; ?>"></script>
-
-
-
 <script type="text/javascript">
     $(document).ready(function (){
         $("#cuerpo").change(function (){
@@ -31,30 +27,31 @@
                                 
                             </hgroup>
                         </legend> 
-                                <div>
-                                    <div class="input-group">
-                                        <label for="diseño">Diseño</label>
-                                        <input type="text" class="form-control" name="nomDisenio" placeholder="San Diego CREAM">
-                                    </div>
-                                    <div class="input-group">
-                                        <label for="idCuerpo">Cuerpo</label>
-                                        <select name="idCuerpo" id="idCuerpo"class="form-control"required aria-required="true">
-                                            <option value="0">Selecciona</option>
-                                                <?php
-                                                    foreach ($cuerpo as $filaas) {
-                                                ?>
-                                                    <option value="<?= $filaas->idCuerpo ?>"><?= $filaas->Identificador ?></option>
-                                                        <?php
-                                                            }
-                                                        ?>
-                                         </select>
-                                    </div>
+                            <div>
+                                <div class="input-group">
+                                    <label for="diseño">Diseño</label>
+                                    <input type="text" class="form-control" name="nomDisenio" placeholder="San Diego CREAM">
                                 </div>
-                                
-                                <div class="form-group">
-                                        <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
+                                <div class="input-group">
+                                    <label for="idCuerpo">Cuerpo</label>
+                                    <select name="idCuerpo" id="idCuerpo"class="form-control"required aria-required="true">
+                                        <option value="0">Selecciona</option>
+                                            <?php
+                                                foreach ($cuerpo as $filaas) {
+                                            ?>
+                                                <option value="<?= $filaas->idCuerpo ?>"><?= $filaas->Identificador ?></option>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                     </select>
                                 </div>
-                            </form>
+                            </div>
+
+                            <div class="form-group">
+                                    <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
+                            </div>
+                    </fieldset>
+                </form>
             </center>
         </section>
     </section>
