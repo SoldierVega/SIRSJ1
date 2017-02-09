@@ -1,3 +1,28 @@
+<script>
+    
+     $(document).ready(function (){
+        $("#causa").change(function (){
+           $("#causa option:selected").each(function (){
+               causa = $('#causa').val();
+               $.post("http://localhost/SIRSJ1/detalle/getCausa",{
+                   causa: causa
+               });
+           }); 
+        });
+    });
+    
+    $(document).ready(function (){
+        $("#tipo").change(function (){
+           $("#tipo option:selected").each(function (){
+               tipo = $('#tipo').val();
+               $.post("http://localhost/SIRSJ1/detalle/getTipo",{
+                   tipo: tipo
+               });
+           }); 
+        });
+    });
+</script>
+
 <section>
     <section class="modal-dialog" >
         <section class="modal-content">
@@ -9,10 +34,18 @@
                 
                 <form style="width: 80%;" method="POST" action="<?php echo site_url('/detalle/insert/');  ?>">
                     <div> 
-                                    <div class="input-group">
-                                            <label for="text">Id Calidad</label>
-                                            <input   type="number" class="hidden" name="idCalidad"
+                                    <div class="hidden">
+                                        <label  for="text">Id Calidad</label>
+                                            <input   type="number"  name="idCalidad"
                                                      value="<?php echo $da->idCalidad; ?>">
+                                            <label for="fecha">Fecha</label>
+                            <input type="date"  name="txtFecha" placeholder="DD/MM/YYYY" 
+                                   value="<?php echo $da->fecha; ?>">
+                                            <label for="text">Turno</label>
+                                            <input   type="number"  name="txtTurno"
+                                                     value="<?php echo $da->turno; ?>">
+                                            
+                                            
                                     </div><br>
 
                                     <div class="form-group">
@@ -27,15 +60,33 @@
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                       <input type="number" class="form-control" name="idTipo"   placeholder="Perdida">
+                                                        <select name="idTipo" id="idTipo" class="form-control" required="TRUE" >
+                                                        <option value="">Selecciona</option>
+                                                            <?php
+                                                                foreach ($tipo as $filaas) {
+                                                            ?>
+                                                        <option value="<?= $filaas->idTipo ?>"><?= $filaas->Tipo ?></option>
+                                                            <?php
+                                                                }
+                                                            ?>
+                                                    </select>
                                                     </td>
                                                     <td> &nbsp;</td>
                                                     <td>
-                                                        <input type="number" class="form-control" name="idCausa"   placeholder="DDH">
+                                                        <select name="idCausa" id="causa"class="form-control"required aria-required="true">
+                                                            <option value="0">Selecciona</option>
+                                                                <?php
+                                                                    foreach ($causa as $filaas) {
+                                                                ?>
+                                                            <option value="<?= $filaas->idCausa ?>"><?= $filaas->Causa ?></option>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                        </select>
                                                     </td>
                                                     <td> &nbsp;</td>
                                                     <td>
-                                                        <input type="number" class="form-control" name="numPiezas" placeholder="120">
+                                                        <input type="number" class="form-control" name="numPiezas" placeholder="120" required="TRUE">
                                                     </td>
                                                 </tr>
                                             </table>

@@ -24,18 +24,31 @@ class calidad extends CI_Controller{
     }
     
     function index () {
-        
         $data['datos'] = $this->calidad_model->query();
         $data['base'] = $this->base;
         $data['title'] = 'Datos Calidad';
         $this->load->view('templates/header',$data);
-        $this->load->view('calidad/listCalidad.php', $data);
-        $this->load->view('templates/copyright',$data);
-         
+        $this->load->view('calidad/filtroCalidad.php', $data);
+        $this->load->view('templates/copyright',$data);    
     }
     
-   
-    
+    function consultar(){
+        $calidad = new CalidadPojo();
+        $calidad->setTxtFecha($this->input->post('fecha', TRUE));
+        $calidad->setTxtTurno($this->input->post('turno', TRUE));
+        $data['datos'] = $this->calidad_model->Buscar($calidad);
+        $data['css'] = $this->css;
+        $data['base'] = $this->base;
+        $data['jquery'] = $this->jquery;
+        $fil['fecha']= $calidad->getTxtFecha();
+        $fil['turno'] = $calidad->getTxtTurno();
+        $this->load->view('/templates/header',$data);
+        $this->load->view('/templateFiltro/filtroCalidadB.php',$fil);
+        $this->load->view('calidad/listCalidad.php', $data);
+        $this->load->view('/templates/copyright',$data);
+        
+    }
+      
     function delete($idCalidad){
         if (isset($idCalidad)){
             $this->calidad_model->delete($idCalidad);
@@ -60,17 +73,12 @@ class calidad extends CI_Controller{
             $data['esmaltador'] = $this->calidad_model->getEsmaltador();
             $data['disenio'] = $this->calidad_model->getDisenio();
             $data['formato'] = $this->calidad_model->getFormato();
-        
-            
-         //   $this->load->view('/templates/header',$data);
             $this->load->view('calidad/addCalidad.php',$data);
-           // $this->load->view('templates/copyright',$data);
              $data['title_page'] = 'Captura Calidad';
-            
             return;
         }
         $this->calidad_model->insert($calidad); // Invocamos nuestro metodo de insertar
-        $this->index(); // Invocalos la opción listar 
+        $this->consultar(); // Invocalos la opción listar 
     }
     
     
@@ -79,7 +87,6 @@ class calidad extends CI_Controller{
         $this->load->view('calidad/editCalidad.php',$datos);
     }
     
-     
     function update($idCalidad){
         $calidad = new CalidadPojo();
         $calidad->setIdCalidad($idCalidad);      
@@ -103,8 +110,11 @@ class calidad extends CI_Controller{
             return;
         }
         $this->calidad_model->update($calidad); // Invocamos nuestro metodo de insertar
-        $this->index(); // Invocalos la opción listar
+        $this->index(); // Invocamos nuestro metodo listar
     }
+    
+    
+    
     
     public function getTripulacion(){
         if($this->input->post('tripulacion')){
@@ -165,4 +175,18 @@ class calidad extends CI_Controller{
             }
         }
     }
+    
+    public function getCausa(){
+        if($this->input->post('causa')){
+            $causa = $this->input->post('Causa');
+            $causas = $this->calidad_model->getCausa ($causa);
+            foreach ($causas as $fila){
+                ?>
+                <option value="<?= $fila->Causa ?>"></option>
+                <?php
+            }
+        }
+    }
+    
+    
 }

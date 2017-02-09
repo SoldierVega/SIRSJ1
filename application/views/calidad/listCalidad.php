@@ -17,6 +17,7 @@
                 
             ?>
            
+            
         </div> 
     </div>
     <br>
@@ -124,7 +125,7 @@
         </section>
 <section id="modalDetalle" class="modal fade" role="dialog">
             <?php
-            include_once (dirname(__FILE__) . '/detalleCalidad/addDetalle.php');
+            include_once (dirname(__FILE__) . '../addDetalle.php');
             ?>
         </section>
       

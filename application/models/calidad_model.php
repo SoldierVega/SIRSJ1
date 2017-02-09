@@ -57,8 +57,39 @@ class calidad_model extends CI_Model implements IModelAbastract {
     }
     
     
-
-    
+    public function Buscar($calidad){
+        if ($calidad instanceof CalidadPojo){
+            $qry = null;
+            $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion, 
+                T.nomFacilitador, T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador, D.nomDisenio AS idDisenio, 
+                F.formato AS idFormato FROM calidad AS C INNER JOIN  
+                tripulacion AS T ON C.idTripulacion = T.idTripulacion INNER JOIN
+                linea AS L ON C.idLinea = L.idLinea INNER JOIN
+                esmaltador AS E ON C.idEsmaltador = E.idEsmaltador INNER JOIN
+                disenio AS D ON C.idDisenio = D.idDisenio INNER JOIN 
+                formato AS F ON C.idFormato = F.idFormato WHERE fecha = 
+                '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+            
+            $data = array();
+            foreach ($qry->result() as $key => $reg){
+                $crear = new factory();
+                $produccion = $crear->create('calidad');
+                
+                $calidad = new CalidadPojo();
+                $calidad->setIdCalidad($reg->idCalidad);
+                $calidad->setFecha($reg->fecha);
+                $calidad->setTurno($reg->turno);
+                $calidad->setIdTripulacion($reg->idTripulacion);
+                $calidad->setIdLinea($reg->idLinea);
+                $calidad->setIdEsmaltador($reg->idEsmaltador);
+                $calidad->setIdDisenio($reg->idDisenio);
+                $calidad->setIdFormato($reg->idFormato);
+                
+                array_push($data, $calidad); 
+            }
+            return $data;
+        }
+    } 
     
     // Metodo para Relaizar una Consulta de los Datos que se encuentran en la Base de Datos
     public function query($idCalidad = ''){
@@ -152,25 +183,25 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getFormato(){
         $this->db->order_by('formato');
-        $disenio = $this->db->query('SELECT idFormato, formato AS Formato FROM db_sir.formato');
-        if ($disenio->num_rows() > 0){
-            return $disenio->result();
+        $formato = $this->db->query('SELECT idFormato, formato AS Formato FROM db_sir.formato');
+        if ($formato->num_rows() > 0){
+            return $formato->result();
         }
     }
     
-//    public function getCausa(){
-//        $this->db->order_by('tipoCausa');
-//        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM sir_bd.causa');
-//        if ($causa->num_rows() > 0){
-//            return $causa->result();
-//        }
-//    }
-//    
-//    public function getTipo(){
-//        $this->db->order_by('tipo');
-//        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM sir_bd.tipo');
-//        if ($tipo->num_rows() > 0){
-//            return $tipo->result();
-//        }
-//    }
+    public function getCausa(){
+        $this->db->order_by('tipoCausa');
+        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM db_sir.causa');
+        if ($causa->num_rows() > 0){
+            return $causa->result();
+        }
+    }
+    
+    public function getTipo(){
+        $this->db->order_by('tipo');
+        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM db_sir.tipo');
+        if ($tipo->num_rows() > 0){
+            return $tipo->result();
+        }
+    }
 }

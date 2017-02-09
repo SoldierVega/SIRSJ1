@@ -95,4 +95,21 @@ class detalle_calidad_model extends CI_Model implements IModelAbastract{
         }
         return $data;
     }
+    
+    
+    public function getCausa(){
+        $this->db->order_by('tipoCausa');
+        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM db_sir.causa');
+        if ($causa->num_rows() > 0){
+            return $causa->result();
+        }
+    }
+    
+    public function getTipo(){
+        $this->db->order_by('tipo');
+        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM db_sir.tipo');
+        if ($tipo->num_rows() > 0){
+            return $tipo->result();
+        }
+    }
 }
