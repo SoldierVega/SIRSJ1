@@ -132,6 +132,11 @@ class CI_DB_mysql_result extends CI_DB_result {
 		return $retval;
 	}
 
+        
+        
+        
+        
+        
 	// --------------------------------------------------------------------
 
 	/**
@@ -139,6 +144,8 @@ class CI_DB_mysql_result extends CI_DB_result {
 	 *
 	 * @return	void
 	 */
+        
+        
 	public function free_result()
 	{
 		if (is_resource($this->result_id))

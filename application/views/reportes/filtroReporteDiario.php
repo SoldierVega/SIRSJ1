@@ -15,7 +15,7 @@
                                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Reporte Diario</a>
                                             </h4>
                                     </div>
-                                    <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div id="collapseOne" class="panel-collapse collapse">
                                         <div class="panel-body">
                                             <form id="addVenta" method="POST"action="<?php echo base_url() . "produccion/consultar"; ?>">
                                                 <div class="form-group">

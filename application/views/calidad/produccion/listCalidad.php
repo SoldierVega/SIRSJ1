@@ -1,10 +1,15 @@
-<script>
-    
-$(document).ready(function() {
-    $('#example').DataTable();
-} );    
+<script type="text/javascript">
+$(document).ready(function () {
+        $("#cajasPrimera").keyup(function () {
+            var cajasPrimera = $(this).val();
+            $("#cajasSegunda").keyup(function () {
+                var cajasSegunda = $(this).val();
+                var cajasEmpacadas = cajasPrimera + cajasSegunda;
+                $("#cajasEmpacadas").val(cajasEmpacadas);
+            });
+        });
+    });
 </script>
-
 <br>
     <div class="row">
         <div class="col-lg-12">

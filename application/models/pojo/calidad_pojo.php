@@ -21,6 +21,7 @@ class CalidadPojo {
     private $idEsmaltador;
     private $idDisenio;
     private $idFormato;
+    private $idDetalle;
     private $txtFecha;
     private $txtTurno;
     
@@ -58,6 +59,9 @@ class CalidadPojo {
 
     function getIdFormato() {
         return $this->idFormato;
+    }
+    function getIdDetalle() {
+        return $this->idDetalle;
     }
 
     function getTxtFecha() {
@@ -98,6 +102,10 @@ class CalidadPojo {
 
     function setIdFormato($idFormato) {
         $this->idFormato = $idFormato;
+    }
+    
+    function setIdDetalle($idDetalle) {
+        $this->idDetalle = $idDetalle;
     }
 
     function setTxtFecha($txtFecha) {

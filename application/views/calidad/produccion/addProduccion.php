@@ -1,3 +1,17 @@
+<script>
+    $(document).ready(function () {
+        $("#primera").keyup(function () {
+            var primera = parseInt($(this).val());
+            $("#segunda").keyup(function () {
+                var segunda = parseInt($(this).val());
+                var total = primera + segunda;
+                $("#total").val(total);
+            });
+
+        });
+    });
+
+</script>
 <section>
     <section class="modal-dialog" >
         <section class="modal-content">
@@ -8,37 +22,78 @@
             <center>
                 
                 <form style="width: 80%;" method="POST" action="<?php echo site_url('/produccion/insert/') ?>">
-                    
-                    <input type="date" class="hidden" name="txtFecha"  value="<?php echo $pro->fecha; ?>">
-                    <input type="number" class="hidden" name="txtTurno"  value="<?php echo $pro->turno; ?>">
-                    
-                    <div> 
-                        <div class="input-group">
-                            <label for="idCalidad">Calidad</label>
-                            <input type="number" class="form-control" name="idCalidad"  value="<?php echo $pro->idCalidad; ?>">
-                            <input type="number" class="form-control" name="idLinea"  value="<?php echo $pro->idLinea; ?>">
-                            <input type="number" class="form-control" name="idDisenio"  value="<?php echo $pro->idDisenio; ?>">
-                        </div>
-                        <div class="input-group">
-                            <label for="corte">Cajas Primera</label>
-                                <input type="number" class="form-control" name="cajasPrimera" placeholder="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="corte">Cajas Segunda</label>
-                                <input type="number" class="form-control" name="cajasSegunda" placeholder="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="corte">Piezas Scrapt</label>
-                                <input type="number" class="form-control" name="pzaScrap" placeholder="1">
-                        </div>
-                        <div class="input-group">
-                            <label for="corte">Cajas Empacadas</label>
-                                <input type="number" class="form-control" name="cajasEmpacadas" placeholder="1">
-                        </div>                                 
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
-                        </div>   
+                    <div> 
+                        <div class="page-header" >
+                            <label >DATOS CALCULO</label>
+                            <table >
+                                <tr>
+                                    <td><label>Fecha</label></td>
+                                    <td><label>Turno</label></td>
+                                    <td><label>Calidad</label></td>
+                                    <td><label>Formato</label></td>
+                                    <td><label></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="date"  class="form-control"name="txtFecha"  value="<?php echo $pro->fecha; ?>"></td>
+                                    <td><input type="number" class="form-control"name="txtTurno"  value="<?php echo $pro->turno; ?>"></td>
+                                    <td><input type="number" class="form-control" name="idCalidad"  value="<?php echo $pro->idCalidad; ?>"> </td>
+                                    <td><input type="number" class="form-control" name="idFormato"  value="<?php echo $pro->idFormato; ?>"> </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <br>
+                            
+                            
+                            
+                        </div>
+                        
+                        <table>
+                            <tr>
+                                <td><label for="corte">Cajas Primera</label></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><label for="corte">Cajas Segunda</label></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><label for="corte">Piezas Scrapt</label></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><label for="corte">Cajas Empacadas</label></td>
+                                
+                            </tr>
+                            <tr>
+                                <td><input type="number" class="form-control" id="primera" 
+                                           name="cajasPrimera" placeholder="1" required="TRUE"></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><input type="number" class="form-control" id="segunda" 
+                                           name="cajasSegunda" placeholder="1" required="TRUE"></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><input type="number" class="form-control" name="pzaScrap" placeholder="1" 
+                                           required="TRUE"></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td><input  readonly="readonly" type="number" id="total" class="form-control" id="cajasEmpacadas" 
+                                           name="cajasEmpacadas" placeholder="1" required="TRUE"></td>
+                                
+                            </tr>
+                          
+                        </table><br>                               
+                                <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
                     </div>
                 </form>
             </center>

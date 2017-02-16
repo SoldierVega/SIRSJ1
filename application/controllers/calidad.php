@@ -1,4 +1,4 @@
-<<?php
+<?php
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,7 +20,7 @@ class calidad extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
-        $this->load->model('calidad_model');        
+        $this->load->model(array('calidad_model', 'equivalencia_model'));        
     }
     
     function index () {
@@ -43,7 +43,7 @@ class calidad extends CI_Controller{
         $fil['fecha']= $calidad->getTxtFecha();
         $fil['turno'] = $calidad->getTxtTurno();
         $this->load->view('/templates/header',$data);
-        $this->load->view('/templateFiltro/filtroCalidadB.php',$fil);
+        $this->load->view('calidad/filtroCalidadB.php',$fil);
         $this->load->view('calidad/listCalidad.php', $data);
         $this->load->view('/templates/copyright',$data);
         
@@ -87,6 +87,12 @@ class calidad extends CI_Controller{
         $this->load->view('calidad/editCalidad.php',$datos);
     }
     
+    function que($idFormato){
+        $datos['equ']= $this->equivalencia_model->equ($idFormato);
+        $this->load->view($datos);
+       
+    }
+            
     function update($idCalidad){
         $calidad = new CalidadPojo();
         $calidad->setIdCalidad($idCalidad);      
@@ -176,17 +182,7 @@ class calidad extends CI_Controller{
         }
     }
     
-    public function getCausa(){
-        if($this->input->post('causa')){
-            $causa = $this->input->post('Causa');
-            $causas = $this->calidad_model->getCausa ($causa);
-            foreach ($causas as $fila){
-                ?>
-                <option value="<?= $fila->Causa ?>"></option>
-                <?php
-            }
-        }
-    }
+    
     
     
 }

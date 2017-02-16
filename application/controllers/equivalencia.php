@@ -40,6 +40,12 @@ class equivalencia extends CI_Controller{
         $this->index();
     }
     
+    function que($idFormato){
+        $datos['equ']= $this->equivalencia_model->equ($idFormato);
+        $this->load->view($datos);
+       
+    }
+    
     function insert() {
         $equivalencia = new EquivalenciaPojo();
         $equivalencia->setMCajas($this->input->post('mCajas', TRUE));

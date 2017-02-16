@@ -57,18 +57,23 @@ class calidad_model extends CI_Model implements IModelAbastract {
     }
     
     
+
+    
+
     public function Buscar($calidad){
         if ($calidad instanceof CalidadPojo){
             $qry = null;
             $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion, 
                 T.nomFacilitador, T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador, D.nomDisenio AS idDisenio, 
-                F.formato AS idFormato FROM calidad AS C INNER JOIN  
+                F.formato AS idFormato FROM calidad AS C 
+                INNER JOIN  
                 tripulacion AS T ON C.idTripulacion = T.idTripulacion INNER JOIN
                 linea AS L ON C.idLinea = L.idLinea INNER JOIN
                 esmaltador AS E ON C.idEsmaltador = E.idEsmaltador INNER JOIN
                 disenio AS D ON C.idDisenio = D.idDisenio INNER JOIN 
-                formato AS F ON C.idFormato = F.idFormato WHERE fecha = 
-                '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+                formato AS F ON C.idFormato = F.idFormato 
+       
+                WHERE fecha = '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()." ORDER BY idLinea");
             
             $data = array();
             foreach ($qry->result() as $key => $reg){
@@ -84,6 +89,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
                 $calidad->setIdEsmaltador($reg->idEsmaltador);
                 $calidad->setIdDisenio($reg->idDisenio);
                 $calidad->setIdFormato($reg->idFormato);
+                //$calidad->setIdDetalle($reg->idDetalle);
                 
                 array_push($data, $calidad); 
             }

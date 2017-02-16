@@ -54,19 +54,10 @@
         });
     });
     
-    $(document).ready(function (){
-        $("#causa").change(function (){
-           $("#causa option:selected").each(function (){
-               causa = $('#causa').val();
-               $.post("http://localhost/SIRSJ1/calidad/getCausa",{
-                   causa: causa
-               });
-           }); 
-        });
-    });
+    
 </script>
 
-
+<script src="<?php echo base_url() . 'media/datepicker/jquery.ui.datepicker-es.js' ?>" type="text/javascript"></script>
 
 
     
@@ -83,7 +74,7 @@
                     <div> 
                             <div class="input-group">
                                     <label for="fecha">Fecha</label>
-                                    <input type="date" req class="form-control" name="fecha" placeholder="DD/MM/YYYY" required="TRUE">
+                                    <input type="date"  class="form-control" name="fecha" placeholder="DD/MM/YYYY" required="TRUE">
                             </div><br>
 
                             <div class="input-group" 

@@ -11,32 +11,30 @@
  *
  * @author Diego
  */
-class produccion extends CI_Controller{
-    
-    
+class produccion extends CI_Controller {
+
     var $base;
     var $css;
     var $jquery;
-    
+
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
-        $this->load->model(array('produccion_model','calidad_model'));        
+        $this->load->model(array('produccion_model', 'calidad_model'));
     }
-    
-    function index () {
-        
-            $data['datos'] = $this->calidad_model->query();
-            $data['base'] = $this->base;
-            //$data['title'] = 'Detalle de Calidad';
-            $this->load->view('/templates/header',$data);
-            $this->load->view('/templateFiltro/filtroProduccion.php',$data);
-            //$this->load->view('calidad/produccion/listCalidad.php', $data);
-            $this->load->view('templates/copyright',$data);
-            
+
+    function index() {
+
+        $data['datos'] = $this->calidad_model->query();
+        $data['base'] = $this->base;
+        //$data['title'] = 'Detalle de Calidad';
+        $this->load->view('/templates/header', $data);
+        $this->load->view('/templateFiltro/filtroProduccion.php', $data);
+        //$this->load->view('calidad/produccion/listCalidad.php', $data);
+        $this->load->view('templates/copyright', $data);
     }
-    
-    function consultar(){
+
+    function consultar() {
         $calidad = new CalidadPojo();
         $calidad->setTxtFecha($this->input->post('txtFecha', TRUE));
         $calidad->setTxtTurno($this->input->post('txtTurno', TRUE));
@@ -44,50 +42,68 @@ class produccion extends CI_Controller{
         $data['css'] = $this->css;
         $data['base'] = $this->base;
         $data['jquery'] = $this->jquery;
-        $fil['txtFecha']= $calidad->getTxtFecha();
+        $fil['txtFecha'] = $calidad->getTxtFecha();
         $fil['txtTurno'] = $calidad->getTxtTurno();
-        $this->load->view('/templates/header',$data);
-        $this->load->view('/templateFiltro/filtroProduccionB.php',$fil);
+        $this->load->view('/templates/header', $data);
+        $this->load->view('/templateFiltro/filtroProduccionB.php', $fil);
         $this->load->view('calidad/produccion/listCalidad.php', $data);
-        $this->load->view('/templates/copyright',$data);
-        
+        $this->load->view('/templates/copyright', $data);
     }
 
-    function insert(){
+    function insert() {
         $produccion = new ProduccionPojo();
-        
+
         $produccion->setIdCalidad($this->input->post('idCalidad', TRUE));
+        $produccion->setIdFormato($this->input->post('idFormato', TRUE));
         $produccion->setCajasPrimera($this->input->post('cajasPrimera', TRUE));
         $produccion->setCajasSegunda($this->input->post('cajasSegunda', TRUE));
         $produccion->setPzaScrap($this->input->post('pzaScrap', TRUE));
         $produccion->setCajasEmpacadas($this->input->post('cajasEmpacadas', TRUE));
         $produccion->setMPrimera($this->input->post('mPrimera', TRUE));
         $produccion->setMEmpacado($this->input->post('mEmpacado', TRUE));
-        $produccion->setMScrap($this->input->post('mScrap', TRUE)); 
-        if (empty($produccion->getIdCalidad())){
-           $data['title_page'] = 'Agrega Producción';
-           $this->load->view('calidad/produccion/addProduccion.php',$data);
-           return;
+        $produccion->setMScrap($this->input->post('mScrap', TRUE));
+        if (empty($produccion->getIdCalidad())) {
+            $data['title_page'] = 'Agrega Producción';
+            $this->load->view('calidad/produccion/addProduccion.php', $data);
+            return;
         }
-        
+
         $this->produccion_model->insert($produccion);
-        
+
         $this->consultar();
-    }   
-    
-    function ver () {
-        
+    }
+
+    function ver() {
+
         $data['datos'] = $this->produccion_model->query();
         $data['base'] = $this->base;
         //$data['title'] = 'Detalle de Calidad';
-        $this->load->view('/templates/header',$data);
+        $this->load->view('/templates/header', $data);
         $this->load->view('calidad/produccion/listProduccion.php', $data);
-        $this->load->view('templates/copyright',$data);
-         
+        $this->load->view('templates/copyright', $data);
     }
-            
-    function datos($idCalidad){
-        $datos['pro']=  $this->calidad_model->que($idCalidad);
-        $this->load->view('calidad/produccion/addProduccion.php',$datos);   
+
+    function datos($idCalidad) {
+        $datos['pro'] = $this->calidad_model->que($idCalidad);
+        $this->load->view('calidad/produccion/addProduccion.php', $datos);
     }
+    
+    function datos2($idFormato) {
+        $datos['proc'] = $this->calidad_model->que2($idFormato);
+        $this->load->view('calidad/produccion/addProduccion.php', $datos);
+    }
+    
+    
+    public function getFormato(){
+        if($this->input->post('formato')){
+            $formato = $this->input->post('idFormato');
+            $fomatos = $this->calidad_model->getFormato($formato);
+            foreach ($fomatos as $fila){
+                ?>
+                <option value="<?= $fila->Formato ?>"></option>
+                <?php
+            }
+        }
+    }
+
 }

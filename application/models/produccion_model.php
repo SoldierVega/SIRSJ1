@@ -1,19 +1,15 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  * Description of produccion_model
  *
  * @author Diego
  * 
  */
-
-
 require_once 'IModelAbastract.php';
 require_once 'factory/factory.php';
 class produccion_model extends CI_Model implements IModelAbastract {
@@ -22,31 +18,27 @@ class produccion_model extends CI_Model implements IModelAbastract {
         parent::__construct();
         $this->load->database();
     }
-
     public function delete($idProduccion) {
         if (isset($idProduccion)){
             $Delete = "DELETE FROM produccion WHERE idProduccion = " .$idProduccion;
             $this->db->query($Delete);
         } 
     }
-
     public function insert($produccion) {
         if ($produccion instanceof ProduccionPojo){
-            $datos = array(
+            $sp = "CALL sp_insert_produccion (?,?,?,?,?,?);";
+           $result= $this->db->query($sp, array(
                 "idCalidad" => $produccion->getIdCalidad(),
+                "idFormato" => $produccion->getIdFormato(),
                 "cajasPrimera" => $produccion->getCajasPrimera(),
                 "cajasSegunda" => $produccion->getCajasSegunda(),
                 "pzaScrap" => $produccion->getPzaScrap(),
                 "cajasEmpacadas" => $produccion->getCajasEmpacadas(),
-                "mPrimera" => $produccion->getMPrimera(),
-                "mEmpacado" => $produccion->getMEmpacado(),
-                "mScrap" => $produccion->getMScrap()
-            );
-            $insert = $this->db->insert_string("produccion", $datos);
-            $this->db->query($insert);
-        } 
+            ));            
+        }
+        //$result->more_result();
+        $result->free_result();
     }
-
     public function query($idProduccion = ''){
         $qry = null;
         if (empty($idProduccion)){
@@ -128,7 +120,6 @@ class produccion_model extends CI_Model implements IModelAbastract {
             return $data;
         }
     }
-
     public function update($produccion) {
         if ($produccion instanceof ProduccionPojo){
             $datos = array(
@@ -145,6 +136,25 @@ class produccion_model extends CI_Model implements IModelAbastract {
             $this->db->where('idProduccion', $produccion->getIdProduccion());
             $this->db->update('produccion', $datos);
         }  
+    }
+    
+    
+    
+    public function que($calidad) {
+        $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, C.idFormato, E.idEquivalencia, E.mCajas, E.pzasCaja, E.idCuerpo, E.idFormato
+FROM calidad AS C INNER JOIN equivalencia AS E ON E.idFormato = C.idFormato WHERE C.idFormato = 
+'".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+        $datos = $this->db->get('calidad');
+        return $datos->row();
+    }
+
+
+    public function getTipo(){
+        $this->db->order_by('tipo');
+        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM db_sir.tipo');
+        if ($tipo->num_rows() > 0){
+            return $tipo->result();
+        }
     }
     
     public function getCalidad(){
@@ -164,5 +174,4 @@ class produccion_model extends CI_Model implements IModelAbastract {
             return $produccion->result();
         }
     }
-
 }

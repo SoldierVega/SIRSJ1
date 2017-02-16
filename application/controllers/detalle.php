@@ -54,6 +54,7 @@ class detalle extends CI_Controller{
         $fil['fecha']= $calidad->getTxtFecha();
         $fil['turno'] = $calidad->getTxtTurno();
         $this->load->view('/templates/header',$data);
+        $this->load->view('calidad/filtroCalidadB.php', $data);
         $this->load->view('calidad/listCalidad.php', $data);
         $this->load->view('templates/copyright',$data);
         

@@ -15,6 +15,7 @@ class ProduccionPojo {
     
     private $idProduccion;
     private $idCalidad;
+    private $idFormato;
     private $cajasPrimera;
     private $cajasSegunda;
     private $pzaScrap;
@@ -26,13 +27,16 @@ class ProduccionPojo {
     function __construct() {
         
     }
-    
     function getIdProduccion() {
         return $this->idProduccion;
     }
 
     function getIdCalidad() {
         return $this->idCalidad;
+    }
+
+    function getIdFormato() {
+        return $this->idFormato;
     }
 
     function getCajasPrimera() {
@@ -69,6 +73,10 @@ class ProduccionPojo {
 
     function setIdCalidad($idCalidad) {
         $this->idCalidad = $idCalidad;
+    }
+
+    function setIdFormato($idFormato) {
+        $this->idFormato = $idFormato;
     }
 
     function setCajasPrimera($cajasPrimera) {

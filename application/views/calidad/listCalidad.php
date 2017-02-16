@@ -1,31 +1,14 @@
  
 
 
-<div id="page-wrapper">
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header">Calidad
-                <?php
-                    echo "<a   href= '$base/detalle/ver' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-eye-open'></i> Ver</a>";     
-                ?>
-            </h3>
-            <?php
-                echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/calidad/insert' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";  
-                
-            ?>
-           
-            
-        </div> 
-    </div>
-    <br>
+
+   
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                            
+                          
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -55,6 +38,9 @@
 
                                     echo '</TD><TD>';
                                     echo '<b><center>Formato';
+                                    
+                                    echo '</TD><TD>';
+                                    echo '<b><center>N° Detalles';
 
 
 
@@ -88,6 +74,9 @@
 
                                         echo '</TD><TD>';
                                         echo $obj->getIdFormato();
+                                        
+                                        echo '</TD><TD>';
+                                        echo $obj->getIdDetalle();
 
 
 

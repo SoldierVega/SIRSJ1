@@ -41,12 +41,18 @@ class equivalencia_model extends CI_Model implements IModelAbastract{
         }
     }
     
+    public function equ($idFormato){
+        $this->db->where('idFormato', $idFormato);
+        $datos = $this->db->get('equivalencia');
+        return $datos->row();        
+    }
+    
     public function query($idEquivalencia = ''){
         $qry = null;
         if (empty($idEquivalencia)){
             $qry = $this->db->query('SELECT E.idEquivalencia, E.mCajas, E.pzasCaja, C.cuerpo AS idCuerpo, F.formato AS idFormato '
                                     . 'FROM equivalencia AS E INNER JOIN cuerpo AS C ON E.idCuerpo = C.idCuerpo '
-                                    . 'INNER JOIN formato AS F ON E.idFormato = F.idFormato');
+                                    . 'INNER JOIN formato AS F ON E.idFormato = F.idFormato ORDER BY F.idFormato');
         } else {
             $qry = $this->db->query('SELECT * FROM equivalencia WHERE idEquivalencia = ' .$idEquivalencia);
         }
