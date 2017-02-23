@@ -16,11 +16,11 @@
                         </legend> 
                                 <div>
                                     <div class="input-group">
-                                        <label for="cuerpo">Cuerpo</label>
+                                        <label for="cuerpo">Pasta</label>
                                         <input type="text" class="form-control" name="cuerpo" placeholder="Ceramico">
                                     </div>
                                     <div class="input-group">
-                                        <label for="identificador">Identificador</label>
+                                        <label for="identificador">Cuerpo</label>
                                         <input type="text" class="form-control" name="identificador" placeholder="C">
                                     </div>
                                 </div>

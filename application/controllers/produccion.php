@@ -22,6 +22,13 @@ class produccion extends CI_Controller {
         $this->base = $this->config->item('base_url');
         $this->load->model(array('produccion_model', 'calidad_model'));
     }
+    
+    function delete($idCalidad){
+        if (isset($idCalidad)){
+            $this->calidad_model->delete($idCalidad);
+        }
+        $this->consultar();
+    }
 
     function index() {
 
@@ -36,18 +43,47 @@ class produccion extends CI_Controller {
 
     function consultar() {
         $calidad = new CalidadPojo();
-        $calidad->setTxtFecha($this->input->post('txtFecha', TRUE));
-        $calidad->setTxtTurno($this->input->post('txtTurno', TRUE));
+        $calidad->setTxtFecha($this->input->post('fecha', TRUE));
+        $calidad->setTxtTurno($this->input->post('turno', TRUE));
         $data['datos'] = $this->produccion_model->Buscar($calidad);
         $data['css'] = $this->css;
         $data['base'] = $this->base;
         $data['jquery'] = $this->jquery;
-        $fil['txtFecha'] = $calidad->getTxtFecha();
-        $fil['txtTurno'] = $calidad->getTxtTurno();
+        $fil['Fecha'] = $calidad->getTxtFecha();
+        $fil['turno'] = $calidad->getTxtTurno();
+        $fil['fecha'] = $calidad->getTxtFecha();
+        $fil['turno'] = $calidad->getTxtTurno();
+        $this->load->view('/templates/header', $data);
+        $this->load->view('/templateFiltro/filtroProduccionB.php', $fil);
+        $this->load->view('calidad/produccion/listCalidad.php', $data);
+        //$this->load->view('calidad/produccion/addProduccion.php', $data);
+        $this->load->view('/templates/copyright', $data);
+    }
+    
+    function cerrar() {
+        $calidad = new CalidadPojo();
+        $calidad->setTxtFecha($this->input->post('fecha', TRUE));
+        $calidad->setTxtTurno($this->input->post('turno', TRUE));
+        $data['datos'] = $this->produccion_model->Buscar($calidad);
+        $data['css'] = $this->css;
+        $data['base'] = $this->base;
+        $data['jquery'] = $this->jquery;
+        $fil['fecha'] = $calidad->getTxtFecha();
+        $fil['turno'] = $calidad->getTxtTurno();
         $this->load->view('/templates/header', $data);
         $this->load->view('/templateFiltro/filtroProduccionB.php', $fil);
         $this->load->view('calidad/produccion/listCalidad.php', $data);
         $this->load->view('/templates/copyright', $data);
+    }
+    
+    function que($idCalidad){
+        $datos['cal']=  $this->calidad_model->que($idCalidad);
+        $datos['tripulacion'] = $this->calidad_model->getTripulacion();
+        $datos['linea'] = $this->calidad_model->getLinea();
+        $datos['esmaltador'] = $this->calidad_model->getEsmaltador();
+        $datos['disenio'] = $this->calidad_model->getDisenio();
+        $datos['formato'] = $this->calidad_model->getFormato();
+        $this->load->view('calidad/produccion/delCalidad.php',$datos);
     }
 
     function insert() {
@@ -70,8 +106,33 @@ class produccion extends CI_Controller {
 
         $this->produccion_model->insert($produccion);
 
-        $this->consultar();
+        $this->cerrar();
     }
+    
+    function inser() {
+        $calidad = new CalidadPojo();
+       
+        $calidad->setFecha($this->input->post('fecha', TRUE));
+        $calidad->setTurno($this->input->post('turno', TRUE));
+        $calidad->setIdTripulacion($this->input->post('idTripulacion', TRUE));
+        $calidad->setIdLinea($this->input->post('idLinea', TRUE));
+        $calidad->setIdEsmaltador($this->input->post('idEsmaltador', TRUE));
+        $calidad->setIdDisenio($this->input->post('idDisenio', TRUE));
+        $calidad->setIdFormato($this->input->post('idFormato', TRUE));
+        if (empty($calidad->getFecha())){
+            $data['tripulacion'] = $this->calidad_model->getTripulacion();
+            $data['linea'] = $this->calidad_model->getLinea();
+            $data['esmaltador'] = $this->calidad_model->getEsmaltador();
+            $data['disenio'] = $this->calidad_model->getDisenio();
+            $data['formato'] = $this->calidad_model->getFormato();
+            $this->load->view('calidad/produccion/addCalidadP.php',$data);
+             $data['title_page'] = 'Captura Calidad';
+            return;
+        }
+        $this->calidad_model->insert($calidad); // Invocamos nuestro metodo de insertar
+        $this->consultar(); // Invocalos la opción listar 
+    }
+    
 
     function ver() {
 
@@ -85,13 +146,17 @@ class produccion extends CI_Controller {
 
     function datos($idCalidad) {
         $datos['pro'] = $this->calidad_model->que($idCalidad);
+        $datos['base'] = $this->base;
         $this->load->view('calidad/produccion/addProduccion.php', $datos);
     }
     
-    function datos2($idFormato) {
-        $datos['proc'] = $this->calidad_model->que2($idFormato);
-        $this->load->view('calidad/produccion/addProduccion.php', $datos);
+    function del($idCalidad) {
+        $datos['pro'] = $this->calidad_model->que($idCalidad);
+        $datos['base'] = $this->base;
+        $this->load->view('calidad/produccion/delCalidad.php', $datos);
     }
+    
+    
     
     
     public function getFormato(){

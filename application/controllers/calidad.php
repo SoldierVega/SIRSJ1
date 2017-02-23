@@ -20,7 +20,7 @@ class calidad extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
-        $this->load->model(array('calidad_model', 'equivalencia_model'));        
+        $this->load->model(array('calidad_model', 'equivalencia_model', 'produccion_model'));        
     }
     
     function index () {
@@ -53,10 +53,10 @@ class calidad extends CI_Controller{
         if (isset($idCalidad)){
             $this->calidad_model->delete($idCalidad);
         }
-        $this->index();
+        $this->consultar();
     }
     
-     
+        
     function insert() {
         $calidad = new CalidadPojo();
        
@@ -79,19 +79,29 @@ class calidad extends CI_Controller{
         }
         $this->calidad_model->insert($calidad); // Invocamos nuestro metodo de insertar
         $this->consultar(); // Invocalos la opción listar 
-    }
-    
+    } 
     
     function quer($idCalidad){
         $datos['cal']=  $this->calidad_model->que($idCalidad);
+        $datos['tripulacion'] = $this->calidad_model->getTripulacion();
+        $datos['linea'] = $this->calidad_model->getLinea();
+        $datos['esmaltador'] = $this->calidad_model->getEsmaltador();
+        $datos['disenio'] = $this->calidad_model->getDisenio();
+        $datos['formato'] = $this->calidad_model->getFormato();
         $this->load->view('calidad/editCalidad.php',$datos);
     }
     
-    function que($idFormato){
-        $datos['equ']= $this->equivalencia_model->equ($idFormato);
-        $this->load->view($datos);
-       
+    function que($idCalidad){
+        $datos['cal']=  $this->calidad_model->que($idCalidad);
+        $datos['tripulacion'] = $this->calidad_model->getTripulacion();
+        $datos['linea'] = $this->calidad_model->getLinea();
+        $datos['esmaltador'] = $this->calidad_model->getEsmaltador();
+        $datos['disenio'] = $this->calidad_model->getDisenio();
+        $datos['formato'] = $this->calidad_model->getFormato();
+        $this->load->view('calidad/delCalidad.php',$datos);
     }
+    
+    
             
     function update($idCalidad){
         $calidad = new CalidadPojo();

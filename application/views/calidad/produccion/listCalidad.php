@@ -1,17 +1,24 @@
-<script type="text/javascript">
-$(document).ready(function () {
-        $("#cajasPrimera").keyup(function () {
-            var cajasPrimera = $(this).val();
-            $("#cajasSegunda").keyup(function () {
-                var cajasSegunda = $(this).val();
-                var cajasEmpacadas = cajasPrimera + cajasSegunda;
-                $("#cajasEmpacadas").val(cajasEmpacadas);
-            });
-        });
-    });
-</script>
+
+<div class="form-group-lg" style="width: 100%" >
+           <div style="width: 40%; float: left;">
+               <?php
+                echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/produccion/inser' "
+                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";  
+                
+            ?>
+           </div>
+               
+           <div style="width: 5%; float: right;">
+                <?php
+                    echo "<a class='btn btn-primary' href= '$base/produccion/ver'><i class='glyphicon glyphicon-eye-open' "
+                . "onclick='alert('Hello world!')'></i> Ver</a>";    
+                ?>
+            </div>
+           
+        </div>
 <br>
-    <div class="row">
+<br>
+    <div class="panel-default">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -45,6 +52,10 @@ $(document).ready(function () {
 
                                     echo '</TD><TD>';
                                     echo '<b><center>Formato';
+                                    echo '</TD><TD>';
+                                    echo '<b><center>M Empacados';
+                                    
+                                    
 
 
 
@@ -78,11 +89,14 @@ $(document).ready(function () {
 
                                         echo '</TD><TD>';
                                         echo $obj->getIdFormato();
-
-
+                                        
+                                        echo '</TD><TD>';
+                                        echo $obj->getMEmpacado();
+                                        
+                                     
 
                                         echo '</TD><TD>';
-                                        echo "<a class = 'fa fa-trash-o fa-lg' href='$base/calidad/delete/" . $obj->getIdCalidad() . "'></a>";
+                                        echo "<a data-toggle='modal' data-target='#modalEliminar' class = 'fa fa-trash-o fa-lg' href='$base/produccion/que/" . $obj->getIdCalidad() . "'></a>";
 
                                         echo '</TD><TD>';
                                         echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/calidad/quer/" .$obj->getIdCalidad() . "'></a>";
@@ -93,6 +107,11 @@ $(document).ready(function () {
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
+                                    echo '</table>';
+                                if (empty($datos)) {
+                                echo '<div style="text-align: center" class="alert-danger"><strong>No existen registros!!!</strong> Intenta con otro dato <span class="glyphicon glyphicon-alert"><span/></div >';
+                                }
+                                echo '</div>';
                             ?>
                         </div>
                     </div>
@@ -104,7 +123,7 @@ $(document).ready(function () {
 
 <section id="modalAgrega" class="modal fade" role="dialog">
     <?php
-        include_once (dirname(__FILE__) . '/addCalidad.php');
+        include_once (dirname(__FILE__) . '/addCalidadP.php');
     ?>
 </section>
 
@@ -116,6 +135,11 @@ $(document).ready(function () {
 <section id="modalDetalle" class="modal fade" role="dialog">
     <?php
         include_once (dirname(__FILE__) . '/addProduccion.php');
+    ?>
+</section>
+<section id="modalEliminar" class="modal fade" role="dialog">
+    <?php
+        include_once (dirname(__FILE__) . '/delCalidad.php');
     ?>
 </section>
       

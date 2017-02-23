@@ -59,15 +59,33 @@
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form style="width: 100%;" method="POST" action="<?php echo site_url('/calidad/consultar') ?>">
+                    
+                    <div class="hidden">
+                        <div class="input-group">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" class="form-control" name="fecha" placeholder="DD/MM/YYYY" value="<?php echo $cal->fecha; ?>">
+                        </div>
+
+                        <div class="input-group"> 
+                            <label for="turno">Turno</label> <br>
+                            <input type="number" class="form-control" name="turno" value="<?php echo $cal->turno; ?>">
+                        </div>
+                    </div>
+                        
+                    <div style="width: 7%; float: right;">
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove"></button> 
+                    </div>
+                    
+                </form>
                 <center><h1>Actualiza Captura Calidad</h1></center>
             </section>
             <center>
                 <form style="width: 80%;" method="POST" action="<?php echo site_url('/calidad/update/' . $cal->idCalidad) ?>">
                     <div> 
-                        <div class="input-group">
-                            <label for="idCalidad" class="hidden">IdCalidad</label>
-                            <input type="number"  name="idCalidad" disabled="true" class="hidden"
+                        <div class="input-group hidden">
+                            <label for="idCalidad" >IdCalidad</label>
+                            <input type="number"  name="idCalidad" disabled="true" 
                                 value="<?php echo $cal->idCalidad; ?>">
                         </div>
                         <div class="input-group">
@@ -78,16 +96,9 @@
 
                         <div class="input-group"> 
                             <label for="turno">Turno</label> <br>
-                                <label class="radio-inline" >
-                                <input type="radio" name="turno" id="turno" value="1"> 1
-                                </label>
-                                <label class="radio-inline">
-                                  <input type="radio" name="turno" id="turno" value="2"> 2
-                                </label>
-                                <label class="radio-inline">
-                                <input type="radio" name="turno" id="turno" value="3"> 3
-                                </label>
-                        </div> <br>
+                            <input type="number" class="form-control"  placeholder="DD/MM/YYYY" 
+                                   value="<?php echo $cal->turno; ?>">
+                                                        </div> <br>
                         <div class="form-group">
                             <div  data-validate="">
                                 <table>
@@ -101,15 +112,15 @@
                                     <tr>
                                         <td>
                                             <select name="idTripulacion" id="tripulcion"class="form-control"required aria-required="true" placeholder="">
-                                                <option value="0">Selecciona</option>
+                                                <option value="<?php echo $cal->idTripulacion; ?>">Selecciona</option>
                                                     <?php
                                                         foreach ($tripulacion as $filaas) {
                                                     ?>
-                                                <option selected="selected" value="<?= $filaas->idTripulacion ?>" <?php 
-                                                    if($filaas->idTripulacion == $idTripulacion){
+                                                <option selected="selected" value="<?= $filaas->idTripulacion?>" <?php 
+                                                    if($filaas->Tripulacion == $tripulacion){
                                                         echo 'Selected';
                                                     }
-                                                    ?>><?= $filaas->Tripulacion ?></option>
+                                                    ?>><?= $filaas->Tripulacion ?></option> 
                                                         <?php
                                                             }
                                                         ?>
@@ -142,12 +153,12 @@
                                 <tr>
                                     <td>
                                         <select name="idLinea" id="linea"class="form-control"required aria-required="true">
-                                            <option value="0">Selecciona</option>
+                                            <option value="<?php echo $cal->idLinea; ?>">Selecciona</option>
                                                 <?php
                                                     foreach ($linea as $filaas) {
                                                 ?>
                                             <option selected="selected" value="<?= $filaas->idLinea ?>" <?php
-                                                if ($filaas->idLinea == $idLinea){
+                                                if ($filaas->idLinea == $linea){
                                                     echo 'Selected';
                                                 }
                                                 ?>><?= $filaas->Linea ?></option>
@@ -159,12 +170,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <select name="idEsmaltador" id="esmaltador"class="form-control"required aria-required="true" placeholder="">
-                                            <option value="0">Selecciona</option>
+                                            <option value="<?php echo $cal->idEsmaltador; ?>">Selecciona</option>
                                                 <?php
                                                     foreach ($esmaltador as $filaas) {
                                                 ?>
                                                 <option selected="selected"value="<?= $filaas->idEsmaltador ?>"<?php
-                                                    if($filaas->idEsmaltador == $idEsmaltador){
+                                                    if($filaas->idEsmaltador == $esmaltador){
                                                         echo 'Selected';
                                                     }
                                                 ?>><?= $filaas->Esmaltador ?></option>
@@ -176,12 +187,12 @@
                                     <td>&nbsp;</td>
                                     <td>
                                         <select name="idDisenio" id="disenio"class="form-control"required aria-required="true" placeholder="">
-                                                <option value="0">Selecciona</option>
+                                                <option value="<?php echo $cal->idDisenio; ?>">Selecciona</option>
                                                     <?php
                                                         foreach ($disenio as $filaas) {
                                                     ?>
                                                 <option selected="selected" value="<?= $filaas->idDisenio ?>" <?php
-                                                    if($filaas->idDisenio == $idDisenio){
+                                                    if($filaas->idDisenio == $disenio){
                                                     echo 'Selected';
                                                     }
                                                 ?>><?= $filaas->Disenio ?></option>
@@ -193,13 +204,13 @@
                                     <td>&nbsp;</td>
                                     <td>
                                        <select name="idFormato" id="formato"class="form-control"required aria-required="true" placeholder="">
-                                                <option value="0">Selecciona</option>
+                                                <option value="<?php echo $cal->idFormato; ?>">Selecciona</option>
                                                     <?php
                                                         foreach ($formato as $filaas) {
                                                     ?>
                                                 <option selected="selected" value="<?= $filaas->idFormato ?>" <?php
-                                                    if($filaas->idFormato == $idDisenio){
-                                                    echo 'Selected';
+                                                    if($filaas->idFormato == $formato){
+                                                    echo $formato;
                                                     }
                                                 ?>><?= $filaas->Formato ?></option>
                                                     <?php
@@ -211,7 +222,7 @@
                             </table>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-info btn btn-lg">Actualizar</button>
+                            <button type="submit" class="btn btn-info ">Actualizar</button>
                         </div> 
                     </div>   
                 </form>

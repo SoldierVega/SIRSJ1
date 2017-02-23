@@ -90,14 +90,18 @@ class produccion_model extends CI_Model implements IModelAbastract {
     public function Buscar($calidad){
         if ($calidad instanceof CalidadPojo){
             $qry = null;
-            $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion, 
-                T.nomFacilitador, T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador, D.nomDisenio AS idDisenio, 
-                F.formato AS idFormato FROM calidad AS C INNER JOIN  
-                tripulacion AS T ON C.idTripulacion = T.idTripulacion INNER JOIN
-                linea AS L ON C.idLinea = L.idLinea INNER JOIN
-                esmaltador AS E ON C.idEsmaltador = E.idEsmaltador INNER JOIN
-                disenio AS D ON C.idDisenio = D.idDisenio INNER JOIN 
-                formato AS F ON C.idFormato = F.idFormato WHERE fecha = 
+            $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, 
+                T.tripulacion AS idTripulacion, T.nomFacilitador, 
+                T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador,
+                D.nomDisenio AS idDisenio, F.formato AS idFormato, 
+                PR.mEmpacado AS mEmpacado FROM calidad AS C 
+                INNER JOIN tripulacion AS T ON C.idTripulacion = T.idTripulacion
+                INNER JOIN linea AS L ON C.idLinea = L.idLinea 
+                INNER JOIN esmaltador AS E ON C.idEsmaltador = E.idEsmaltador 
+                INNER JOIN disenio AS D ON C.idDisenio = D.idDisenio
+                INNER JOIN formato AS F ON C.idFormato = F.idFormato 
+                LEFT JOIN produccion AS PR ON C.idCalidad = PR.idCalidad   
+                WHERE fecha = 
                 '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
             
             $data = array();
@@ -114,6 +118,8 @@ class produccion_model extends CI_Model implements IModelAbastract {
                 $calidad->setIdEsmaltador($reg->idEsmaltador);
                 $calidad->setIdDisenio($reg->idDisenio);
                 $calidad->setIdFormato($reg->idFormato);
+                $calidad->setMEmpacado($reg->mEmpacado);
+            
                 
                 array_push($data, $calidad); 
             }
@@ -146,32 +152,5 @@ FROM calidad AS C INNER JOIN equivalencia AS E ON E.idFormato = C.idFormato WHER
 '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
         $datos = $this->db->get('calidad');
         return $datos->row();
-    }
-
-
-    public function getTipo(){
-        $this->db->order_by('tipo');
-        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM db_sir.tipo');
-        if ($tipo->num_rows() > 0){
-            return $tipo->result();
-        }
-    }
-    
-    public function getCalidad(){
-        $this->db->order_by('linea');
-        $produccion  = $this->db->query('SELECT fecha, turno, '
-                . 'T.tripulacion, T.nomFacilitador, '
-                . 'T.nomAnalista, L.linea, E.esmaltador,'
-                . ' D.nomDiseno FROM calidad AS C '
-                . 'INNER JOIN  tripulacion AS T ON '
-                . 'C.idTripulacion = T.idTripulacion I'
-                . 'NNER JOIN linea AS L ON C.idLinea = '
-                . 'L.idLinea INNER JOIN esmaltador AS '
-                . 'E ON C.idEsmaltador = E.idEsmaltador '
-                . 'INNER JOIN disenio AS D ON C.idDisenio '
-                . '= D.idDisenio WHERE fecha =' . $fecha + 'AND turno =' .$turno + 'GROUP BY C.corte');
-        if ($produccion->num_rows() > 0){
-            return $produccion->result();
-        }
     }
 }

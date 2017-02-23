@@ -5,7 +5,7 @@
             <h3 class="page-header">Causas</h3>
             <?php
                  echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/causa/insert' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>"; 
+                        . "class='btn btn-primary'><i class='glyphicon-plus'></i> Nuevo</a>"; 
             ?>
         </div>
         
@@ -15,7 +15,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                            
+                    Buscar: <input placeholder="Brillo Bajo">   Mostrar: <input placeholder="50">       
                 </div>
                 <div class="panel-body">
                     <div class="row">

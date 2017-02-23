@@ -5,7 +5,7 @@
             <h3 class="page-header">Cuerpo</h3>
             <?php
                 echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/cuerpo/insert' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Nuevo</a>";      
+                        . "class='btn btn-primary'><i class=' glyphicon-plus'></i> Nuevo</a>";      
             ?>
         </div>
         

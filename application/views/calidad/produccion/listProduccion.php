@@ -27,19 +27,11 @@
                                 
                                     echo '<TR><TD>';
                                     echo '<b><center>Fecha';
-                                                                        
-                                    echo '</TD><TD>';
-                                    echo '<b><center>Linea';
-
-                                    echo '</TD><TD>';
-                                    echo '<b><center>Turno';
+      
+                                    
 
                                     echo '</TD><TD>';
                                     echo '<b><center>Tripulación';
-
-
-                                    echo '</TD><TD>';
-                                    echo '<b><center>Esmaltador';
 
                                     echo '</TD><TD>';
                                     echo '<b><center>Diseño';
@@ -79,17 +71,12 @@
                                         echo '</TD><TD>';
                                         echo $obj->getFecha();
                                         
-                                        echo '</TD><TD>';
-                                        echo $obj->getIdLinea();
+             
 
-                                        echo '</TD><TD>';
-                                        echo  $obj->getTurno();
 
                                         echo '</TD><TD>';
                                         echo $obj->getIdTripulacion();
 
-                                        echo '</TD><TD>';
-                                        echo $obj->getIdEsmaltador();
 
                                         echo '</TD><TD>';
                                         echo $obj->getIdDisenio();
@@ -127,6 +114,11 @@
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
+                                    echo '</table>';
+                                        if (empty($datos)) {
+                                        echo '<div style="text-align: center" class="alert-danger"><strong>No existen registros!!!</strong> Intenta con otro dato <span class="glyphicon glyphicon-alert"><span/></div >';
+                                    }
+                                    echo '</div>';
                             ?>
                         </div>
                     </div>

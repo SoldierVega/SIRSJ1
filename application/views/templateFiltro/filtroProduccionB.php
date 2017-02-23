@@ -23,7 +23,7 @@
                                         </tr>
                                         <tr>
                                         
-                                            <td><input type="date" class="form-control" id="txtFecha"  name="txtFecha" value="<?php echo $txtFecha?>"></td>
+                                            <td><input type="date" class="form-control" id="txtFecha"  name="fecha" value="<?php echo $fecha?>"></td>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
@@ -32,7 +32,7 @@
                                             <td> &nbsp;</td>
                                             
                                             <td>
-                                                <input type="number" class="form-control" id="txtFecha"  name="txtTurno" value="<?php echo $txtTurno?>">
+                                                <input type="number" class="form-control" id="txtFecha"  name="turno" value="<?php echo $turno?>">
                                                 
                                             </td>
                                             <td> &nbsp;</td>
@@ -56,21 +56,7 @@
             </div>
         </div>
         
-        <div class="form-group-lg" style="width: 100%" >
-           <div style="width: 40%; float: left;">
-               <?php
-                   echo "<a class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";  
-                   ?>
-           </div>
-               
-           <div style="width: 5%; float: right;">
-                <?php
-                    echo "<a class='btn btn-primary' href= '$base/produccion/ver'><i class='glyphicon glyphicon-eye-open' "
-                . "onclick='alert('Hello world!')'></i> Ver</a>";    
-                ?>
-            </div>
-           
-        </div>
+        
     </div> <!--    finalizamos -->
     
        

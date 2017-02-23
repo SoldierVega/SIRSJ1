@@ -22,13 +22,15 @@ class CalidadPojo {
     private $idDisenio;
     private $idFormato;
     private $idDetalle;
+    private $nDetalle;
+    private $mEmpacado;
     private $txtFecha;
     private $txtTurno;
     
     function __construct() {
         
     }
-    
+
     function getIdCalidad() {
         return $this->idCalidad;
     }
@@ -60,8 +62,17 @@ class CalidadPojo {
     function getIdFormato() {
         return $this->idFormato;
     }
+
     function getIdDetalle() {
         return $this->idDetalle;
+    }
+
+    function getNDetalle() {
+        return $this->nDetalle;
+    }
+
+    function getMEmpacado() {
+        return $this->mEmpacado;
     }
 
     function getTxtFecha() {
@@ -103,9 +114,17 @@ class CalidadPojo {
     function setIdFormato($idFormato) {
         $this->idFormato = $idFormato;
     }
-    
+
     function setIdDetalle($idDetalle) {
         $this->idDetalle = $idDetalle;
+    }
+
+    function setNDetalle($nDetalle) {
+        $this->nDetalle = $nDetalle;
+    }
+
+    function setMEmpacado($mEmpacado) {
+        $this->mEmpacado = $mEmpacado;
     }
 
     function setTxtFecha($txtFecha) {
@@ -114,7 +133,7 @@ class CalidadPojo {
 
     function setTxtTurno($txtTurno) {
         $this->txtTurno = $txtTurno;
-    }   
+    }
 }
 
     

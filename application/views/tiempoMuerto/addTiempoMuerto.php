@@ -3,7 +3,7 @@
         $("#tripulacion").change(function (){
            $("#tripulacion option:selected").each(function (){
                tripulacion = $('#tripulacion').val();
-               $.post("http://localhost/SIRSJ1/calidad/getTripulacion",{
+               $.post("http://localhost/SIRSJ1/tiempomuerto/getTripulacion",{
                    tripulacion: tripulacion
                });
            }); 
@@ -14,47 +14,12 @@
         $("#linea").change(function (){
            $("#linea option:selected").each(function (){
                linea = $('#linea').val();
-               $.post("http://localhost/SIRSJ1/calidad/getLinea",{
+               $.post("http://localhost/SIRSJ1/tiempomuerto/getLinea';?>",{
                    linea: linea
                });
            }); 
         });
-    });
-    
-    $(document).ready(function (){
-        $("#esmaltador").change(function (){
-           $("#esmaltador option:selected").each(function (){
-               esmaltador = $('#esmaltador').val();
-               $.post("http://localhost/SIRSJ1/calidad/getEsmaltador",{
-                   esmalatador: esmaltador
-               });
-           }); 
-        });
-    });
-    
-    $(document).ready(function (){
-        $("#disenio").change(function (){
-           $("#disenio option:selected").each(function (){
-               disenio = $('#disenio').val();
-               $.post("http://localhost/SIRSJ1/calidad/getDisenio",{
-                   disenio: disenio
-               });
-           }); 
-        });
-    });
-    
-    $(document).ready(function (){
-        $("#formato").change(function (){
-           $("#formato option:selected").each(function (){
-               formato = $('#formato').val();
-               $.post("http://localhost/SIRSJ1/calidad/getFormato",{
-                   formato: formato
-               });
-           }); 
-        });
-    });
-    
-    
+    });    
 </script>
 
 <script src="<?php echo base_url() . 'media/datepicker/jquery.ui.datepicker-es.js' ?>" type="text/javascript"></script>
@@ -65,17 +30,12 @@
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
-                <form style="width: 100%;">
-                    <div style="width: 7%; float: right;">
-                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove close" data-dismiss="modal"   ></button>   
-                    </div><br>
-                    <br> 
-                </form>
-                <center><h1>Agregar Calidad</h1></center>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h1>Agregar Tiempo Muerto</h1></center>
             </section>
             <center>
                 
-                <form style="width: 80%;" method="POST" action="<?php echo site_url('/calidad/insert/') ?>">
+                <form style="width: 80%;" method="POST" action="<?php echo site_url('/tiempomuerto/insert/') ?>">
                     <div> 
                             <div class="input-group">
                                     <label for="fecha">Fecha</label>
@@ -134,12 +94,7 @@
                                 <table>
                                     <tr>
                                         <td><label for="idLinea">Linea </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Esmaltador </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Diseño </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Formato </label></td>
+                                        
                                     </tr>
                                     <tr>
                                         <td>
@@ -153,45 +108,6 @@
                                                             }
                                                         ?>
                                                 </select>
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                                <select name="idEsmaltador" id="esmaltador"class="form-control"required aria-required="true" placeholder="">
-                                                    <option value="0">Selecciona</option>
-                                                        <?php
-                                                            foreach ($esmaltador as $filaas) {
-                                                        ?>
-                                                    <option value="<?= $filaas->idEsmaltador ?>"><?= $filaas->Esmaltador ?></option>
-                                                        <?php
-                                                            }
-                                                        ?>
-                                                </select>
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                            <select name="idDisenio" id="disenio"class="form-control"required aria-required="true" placeholder="">
-                                                    <option value="0">Selecciona</option>
-                                                        <?php
-                                                            foreach ($disenio as $filaas) {
-                                                        ?>
-                                                    <option value="<?= $filaas->idDisenio ?>"><?= $filaas->Disenio ?></option>
-                                                        <?php
-                                                            }
-                                                        ?>
-                                            </select>
-                                        </td>
-                                        <td>&nbsp;</td>
-                                        <td>
-                                           <select name="idFormato" id="formato"class="form-control"required aria-required="true" placeholder="">
-                                                <option value="0">Selecciona</option>
-                                                    <?php
-                                                        foreach ($formato as $filaas) {
-                                                    ?>
-                                                <option value="<?= $filaas->idFormato ?>"><?= $filaas->Formato ?></option>
-                                                    <?php
-                                                        }
-                                                    ?>
-                                            </select> 
                                         </td>
                                         
                                     </tr>

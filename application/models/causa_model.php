@@ -48,7 +48,7 @@ class causa_model extends CI_Model implements IModelAbastract{
     public function query($idCausa = ''){
         $qry = null;
         if (empty($idCausa)){
-            $qry = $this->db->get('causa');
+            $qry = $this->db->query("SELECT C.idCausa, C.tipoCausa FROM causa AS C LIMIT 5");
         }else {
             $qry = $this->db->query('SELECT * FROM causa WHERE idCausa = '. $idCausa);
         }

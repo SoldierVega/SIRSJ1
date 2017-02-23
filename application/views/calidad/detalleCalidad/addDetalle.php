@@ -27,7 +27,24 @@
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form style="width: 100%;" method="POST" action="<?php echo site_url('/calidad/consultar/') ?>">
+                    <div style="width: 7%; float: right;">
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove"></button>   
+                    </div><br>
+                    <div class="hidden" >
+                        <table >
+                            <tr>
+                                <td><label>Fecha</label></td>
+                                <td><label>Turno</label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="date"  class="form-control"name="fecha"  value="<?php echo $da->fecha; ?>"></td>
+                                <td><input type="number" class="form-control"name="turno"  value="<?php echo $da->turno; ?>"></td>                                 
+                            </tr>
+                        </table>
+                        <br>
+                    </div><br> 
+                </form>
                 <center><h1>Agregar Detalle</h1></center>
             </section>
             <center>

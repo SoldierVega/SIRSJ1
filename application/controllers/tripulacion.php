@@ -22,13 +22,14 @@ class tripulacion extends CI_Controller {
         $this->load->model('tripulacion_model');        
     }
     
+    
     function index () {
         
         $data['datos'] = $this->tripulacion_model->query();
         $data['base'] = $this->base;
         $data['title'] = 'Tripulacion';
         $this->load->view('/templates/header',$data);
-        $this->load->view('tripulacion/listTripulacio.php', $data);
+        $this->load->view('tripulacion/listTripulacion.php', $data);
         $this->load->view('templates/copyright',$data);
     }
     

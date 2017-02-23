@@ -65,17 +65,12 @@
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
-                <form style="width: 100%;">
-                    <div style="width: 7%; float: right;">
-                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove close" data-dismiss="modal"   ></button>   
-                    </div><br>
-                    <br> 
-                </form>
-                <center><h1>Agregar Calidad</h1></center>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <center><h1>Agregar Calidad en Produccion</h1></center>
             </section>
             <center>
                 
-                <form style="width: 80%;" method="POST" action="<?php echo site_url('/calidad/insert/') ?>">
+                <form style="width: 80%;" method="POST" action="<?php echo site_url('/produccion/inser') ?>">
                     <div> 
                             <div class="input-group">
                                     <label for="fecha">Fecha</label>

@@ -55,8 +55,6 @@ class calidad_model extends CI_Model implements IModelAbastract {
         $datos = $this->db->get('calidad');
         return $datos->row();
     }
-    
-    
 
     
 
@@ -65,7 +63,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
             $qry = null;
             $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion, 
                 T.nomFacilitador, T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador, D.nomDisenio AS idDisenio, 
-                F.formato AS idFormato FROM calidad AS C 
+                F.formato AS idFormato,  (select count(*) from detallecalidad as dc where dc.idCalidad=C.idCalidad) as nDetalle FROM calidad AS C 
                 INNER JOIN  
                 tripulacion AS T ON C.idTripulacion = T.idTripulacion INNER JOIN
                 linea AS L ON C.idLinea = L.idLinea INNER JOIN
@@ -89,7 +87,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
                 $calidad->setIdEsmaltador($reg->idEsmaltador);
                 $calidad->setIdDisenio($reg->idDisenio);
                 $calidad->setIdFormato($reg->idFormato);
-                //$calidad->setIdDetalle($reg->idDetalle);
+                $calidad->setNDetalle($reg->nDetalle);
                 
                 array_push($data, $calidad); 
             }
@@ -157,7 +155,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     // Funciones para traer los valores y no los ID´s de las llaves foraneas
     public function getTripulacion(){
         $this->db->order_by('tripulacion');
-        $tripulacion = $this->db->query('SELECT idTripulacion, tripulacion AS Tripulacion FROM db_sir.tripulacion');
+        $tripulacion = $this->db->query('SELECT idTripulacion, tripulacion AS Tripulacion FROM sir.tripulacion');
         if ($tripulacion->num_rows() > 0){
             return $tripulacion->result();
         }
@@ -165,7 +163,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getLinea(){
         $this->db->order_by('linea');
-        $linea = $this->db->query('SELECT idLinea, linea AS Linea FROM db_sir.linea');
+        $linea = $this->db->query('SELECT idLinea, linea AS Linea FROM sir.linea');
         if ($linea->num_rows() > 0){
             return $linea->result();
         }
@@ -173,7 +171,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getEsmaltador(){
         $this->db->order_by('esmaltador');
-        $esmaltador = $this->db->query('SELECT idEsmaltador, esmaltador AS Esmaltador FROM db_sir.esmaltador');
+        $esmaltador = $this->db->query('SELECT idEsmaltador, esmaltador AS Esmaltador FROM sir.esmaltador');
         if ($esmaltador->num_rows() > 0){
             return $esmaltador->result();
         }
@@ -181,7 +179,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getDisenio(){
         $this->db->order_by('nomDisenio');
-        $disenio = $this->db->query('SELECT idDisenio, nomDisenio AS Disenio FROM db_sir.disenio');
+        $disenio = $this->db->query('SELECT idDisenio, nomDisenio AS Disenio FROM sir.disenio');
         if ($disenio->num_rows() > 0){
             return $disenio->result();
         }
@@ -189,7 +187,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getFormato(){
         $this->db->order_by('formato');
-        $formato = $this->db->query('SELECT idFormato, formato AS Formato FROM db_sir.formato');
+        $formato = $this->db->query('SELECT idFormato, formato AS Formato FROM sir.formato');
         if ($formato->num_rows() > 0){
             return $formato->result();
         }
@@ -197,7 +195,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getCausa(){
         $this->db->order_by('tipoCausa');
-        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM db_sir.causa');
+        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM sir.causa');
         if ($causa->num_rows() > 0){
             return $causa->result();
         }
@@ -205,7 +203,7 @@ class calidad_model extends CI_Model implements IModelAbastract {
     
     public function getTipo(){
         $this->db->order_by('tipo');
-        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM db_sir.tipo');
+        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM sir.tipo');
         if ($tipo->num_rows() > 0){
             return $tipo->result();
         }

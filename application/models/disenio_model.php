@@ -82,7 +82,7 @@ class disenio_model extends CI_Model implements IModelAbastract {
     // Funciones para traer los valores y no los ID´s de las llaves foraneas
     public function getCuerpo(){
         $this->db->order_by('identificador');
-        $cuerpo = $this->db->query('SELECT idCuerpo, identificador AS Identificador FROM sir_bd.cuerpo');
+        $cuerpo = $this->db->query('SELECT idCuerpo, identificador AS Identificador FROM bd.cuerpo');
         if ($cuerpo->num_rows() > 0){
             return $cuerpo->result();
         }

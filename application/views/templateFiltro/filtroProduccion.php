@@ -23,7 +23,7 @@
                                         </tr>
                                         <tr>
                                         
-                                            <td><input type="date" class="form-control" id="txtFecha" name="txtFecha"></td>
+                                            <td><input type="date" class="form-control" id="txtFecha" name="fecha"></td>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
@@ -33,7 +33,7 @@
                                             
                                             <td>
                                                 
-                                                <select name="txtTurno" class="form-control">
+                                                <select name="turno" class="form-control">
                                                         <option value="">Selecciona</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
