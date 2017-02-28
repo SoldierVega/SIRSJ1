@@ -39,7 +39,7 @@
                                                     <td> &nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td><input type="date" class="form-control" id="txtFecha" name="fecha" ></td>
+                                                <td><input type="date" class="form-control" id="txtFecha" name="fecha" required="TRUE" ></td>
                                                 <td> &nbsp;</td>
                                                 <td> &nbsp;</td>
                                                 <td> &nbsp;</td>
@@ -59,7 +59,7 @@
                                             <tr>
                                                 <td>
                                                     
-                                                    <select name="turno" class="form-control">
+                                                    <select name="turno" class="form-control" required="TRUE">
                                                         <option value="">Selecciona</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>

@@ -19,7 +19,7 @@
                     <div style="width: 7%; float: right;">
                         <button type="submit" class="btn btn-default glyphicon glyphicon-remove"></button>   
                     </div><br>
-                    <div class="" >
+                    <div class="hidden" >
                         <table >
                             <tr>
                                 <td><label>Fecha</label></td>
@@ -81,18 +81,18 @@
                             </tr>
                             <tr>
                                 <td><input type="number" class="form-control" id="primera" 
-                                           name="cajasPrimera" placeholder="1" required="TRUE" onclick="alert('Se ingresa en total de Cajas de Primera empacadas por turno.')"></td>
+                                           name="cajasPrimera" placeholder="1" required="TRUE"></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td><input type="number" class="form-control" id="segunda" 
-                                           name="cajasSegunda" placeholder="1" required="TRUE" onclick="alert('Se ingresa en total de Cajas de Segunda empacadas por turno')" ></td>
+                                           name="cajasSegunda" placeholder="1" required="TRUE"></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><input type="number" class="form-control" name="pzaScrap" placeholder="1" required="TRUE" onclick="alert('Se ingresa en total de Scrap detectado por turno')"></td>
+                                <td><input type="number" class="form-control" name="pzaScrap" placeholder="1" required="TRUE"></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>

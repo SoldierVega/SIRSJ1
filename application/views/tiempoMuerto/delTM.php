@@ -30,11 +30,11 @@
                         </div>
                     </div>
                 </form>
-                <center><label> Está seguro de eliminar tiempo muerto de la línea <?php echo $da->idLinea; ?>,
-                        del turno <?php echo $da->turno; ?>, del día <?php echo $da->fecha; ?>.</label></center>
+                <center><label> ¡¡Está seguro de eliminar tiempo muerto de la línea <?php echo $da->idLinea; ?>,
+                        turno <?php echo $da->turno; ?>, día <?php echo $da->fecha; ?> !!Esto ocasionara que se pierdan los datos.</label></center>
             </section>
             <center>
-                
+                <label>¿Desea continuar ?</label>
                             <form style="width: 80%;" method="POST" action="<?php echo site_url('/tiempomuerto/delete/' . $da->idTiempoMuerto) ?>">
                                 <div class="hidden"> 
                                     <div class="hidden">

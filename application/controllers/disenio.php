@@ -89,6 +89,30 @@ class disenio extends CI_Controller{
         $this->index(); // Invocalos la opción listar
     }
     
+    
+    function Buscar(){
+        $disenio = new DisenioPojo();
+        $disenio->setDato($this->input->post('dato', TRUE));
+        $data['datos'] = $this->disenio_model->Buscar($disenio);
+        $data['base'] = $this->base;
+        $data['title'] = 'Diseños';
+        $this->load->view('/templates/header',$data);
+        $this->load->view('disenio/listDisenio.php', $data);
+        $this->load->view('templates/copyright',$data);
+    } 
+    function Lim(){
+        $disenio = new DisenioPojo();
+        $disenio->setDato($this->input->post('dato', TRUE));
+        $data['datos'] = $this->disenio_model->Lim($disenio);
+        $data['base'] = $this->base;
+        $data['title'] = 'Diseños';
+        $this->load->view('/templates/header',$data);
+        $this->load->view('disenio/listDisenio.php', $data);
+        $this->load->view('templates/copyright',$data);
+    }
+
+    
+
     public function getCuerpo(){
         if($this->input->post('cuerpo')){
             $cuerpo = $this->input->post('cuerpo');

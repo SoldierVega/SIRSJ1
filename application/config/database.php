@@ -69,7 +69,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
-*/
+ */
+
+define("EMPRESA_HOST", "localhost");
+define("USER", "root");
+define("PASS", "");
+define("NAME", "prueba_sir");
+
 $active_group = 'default';
 $query_builder = TRUE;
 
@@ -78,7 +84,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'sir',
+	'database' => 'prueba_sir',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -94,3 +100,26 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$empresa_connection = mysqli_connect(EMPRESA_HOST, USER, PASS, NAME);
+
+    function run_query($connection, $query,$nested_query=null) {
+            // Run Query and check results;
+            $result_set = mysqli_query($connection, $query);
+            confirm_query($connection, $result_set, $query,$nested_query);
+            return $result_set;
+        }
+
+        function confirm_query($connection, $result_set, $query,$nested_query=null) {
+            if(!$result_set) {
+                $die_message  = "Databas Query Failed: ";
+                $die_message .= "($query) ";
+                $die_message .= mysqli_error($connection) . "(";
+                $die_message .= mysqli_errno($connection) . ") ";
+                if(!is_null($nested_query)){
+                    mysqli_query($connection, "ROLLBACK");
+                    $die_message.="Rollback tran.";
+                }
+                die($die_message);
+            }
+        }

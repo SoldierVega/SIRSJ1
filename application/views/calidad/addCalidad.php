@@ -53,14 +53,7 @@
            }); 
         });
     });
-    
-    
 </script>
-
-<script src="<?php echo base_url() . 'media/datepicker/jquery.ui.datepicker-es.js' ?>" type="text/javascript"></script>
-
-
-    
 <section>
     <section class="modal-dialog" >
         <section class="modal-content">
@@ -106,7 +99,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <select  name="idTripulacion" id="trupilacion" class="form-control" required="TRUE">
+                                                <select  name="idTripulacion"  class="form-control" required>
                                                     <option value="0">Selecciona</option>
                                                         <?php
                                                             foreach ($tripulacion as $filaas) {
@@ -143,7 +136,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                                <select name="idLinea" id="linea"class="form-control"required aria-required="true">
+                                            <select name="idLinea" id="linea"class="form-control"required="TRUE">
                                                     <option value="0">Selecciona</option>
                                                         <?php
                                                             foreach ($linea as $filaas) {
@@ -156,7 +149,7 @@
                                         </td>
                                         <td>&nbsp;</td>
                                         <td>
-                                                <select name="idEsmaltador" id="esmaltador"class="form-control"required aria-required="true" placeholder="">
+                                            <select name="idEsmaltador" id="esmaltador"class="form-control"required aria-required="true" placeholder="">
                                                     <option value="0">Selecciona</option>
                                                         <?php
                                                             foreach ($esmaltador as $filaas) {

@@ -5,18 +5,15 @@
                 <?php
                     echo "<a   href= '$base/detalle/ver' "
                         . "class='btn btn-primary'><i class='glyphicon glyphicon-eye-open'></i> Ver</a>";     
-                ?>
-                
+                ?>  
             </h3>
             <div class="form-group-lg" style="width: 100%" >
                 <div style="width: 40%; float: left;">
                     <?php
-                echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/tiempomuerto/insert' "
+                        echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/tiempomuerto/insert' "
                         . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Tiempo Muerto</a>";  
-                
-            ?>
+                    ?>
                 </div>
-               
                 <div style="width: 24%; float: right;">
                     <div class="panel panel-green">
                         <div class="panel-heading">
@@ -86,7 +83,7 @@
                                             
                                             
                                             <tr>
-                                                <td><input class='btn btn-success ' type="submit" value="Generar"></td>
+                                                <td><input class='btn btn-success ' type="submit" value="Buscar"></td>
                                             </tr>
                                         </table>
                                     </div>

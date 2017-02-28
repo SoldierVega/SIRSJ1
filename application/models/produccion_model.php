@@ -35,8 +35,7 @@ class produccion_model extends CI_Model implements IModelAbastract {
                 "pzaScrap" => $produccion->getPzaScrap(),
                 "cajasEmpacadas" => $produccion->getCajasEmpacadas(),
             ));            
-        }
-        //$result->more_result();
+        }   
         $result->free_result();
     }
     public function query($idProduccion = ''){
@@ -57,7 +56,6 @@ class produccion_model extends CI_Model implements IModelAbastract {
         } else {
             $qry = $this->db->query('SELECT * FROM produccion WHERE idProduccion =' . $idProduccion);
         }
-        
         $data = array();
         foreach ($qry->result() as $key => $reg){
             
@@ -102,7 +100,7 @@ class produccion_model extends CI_Model implements IModelAbastract {
                 INNER JOIN formato AS F ON C.idFormato = F.idFormato 
                 LEFT JOIN produccion AS PR ON C.idCalidad = PR.idCalidad   
                 WHERE fecha = 
-                '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+                '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()." ORDER BY idLinea");
             
             $data = array();
             foreach ($qry->result() as $key => $reg){
@@ -119,7 +117,6 @@ class produccion_model extends CI_Model implements IModelAbastract {
                 $calidad->setIdDisenio($reg->idDisenio);
                 $calidad->setIdFormato($reg->idFormato);
                 $calidad->setMEmpacado($reg->mEmpacado);
-            
                 
                 array_push($data, $calidad); 
             }
@@ -130,14 +127,10 @@ class produccion_model extends CI_Model implements IModelAbastract {
         if ($produccion instanceof ProduccionPojo){
             $datos = array(
                 "idProduccion" => $produccion->getIdProduccion(),
-                //"idCalidad" => $produccion->getIdCalidad(),
                 "cajasPrimera" => $produccion->getCajasPrimera(),
                 "cajasSegunda" => $produccion->getCajasSegunda(),
                 "pzaScrap" => $produccion->getPzasScrap(),
                 "cajasEmpacadas" => $produccion->getCajasEmpacadas(),
-                //"mPrimera" => $produccion->getMPrimera(),
-                //"mEmpacado" => $produccion->getMEmpacado(),
-                //"mScrap" => $produccion->getMScrap()
             );
             $this->db->where('idProduccion', $produccion->getIdProduccion());
             $this->db->update('produccion', $datos);
@@ -147,9 +140,11 @@ class produccion_model extends CI_Model implements IModelAbastract {
     
     
     public function que($calidad) {
-        $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, C.idFormato, E.idEquivalencia, E.mCajas, E.pzasCaja, E.idCuerpo, E.idFormato
-FROM calidad AS C INNER JOIN equivalencia AS E ON E.idFormato = C.idFormato WHERE C.idFormato = 
-'".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+        $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, C.idFormato, 
+                         E.idEquivalencia, E.mCajas, E.pzasCaja, E.idCuerpo, E.idFormato
+                            FROM calidad AS C INNER JOIN equivalencia AS E 
+                            ON E.idFormato = C.idFormato WHERE C.idFormato = '
+                            ".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
         $datos = $this->db->get('calidad');
         return $datos->row();
     }

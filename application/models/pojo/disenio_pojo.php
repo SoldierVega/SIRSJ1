@@ -17,11 +17,11 @@ class DisenioPojo {
     private $idDisenio;
     private $nomDisenio;
     private $idCuerpo;
+    private $dato;
     
     function __construct() {
         
     }
-    
     function getIdDisenio() {
         return $this->idDisenio;
     }
@@ -32,6 +32,10 @@ class DisenioPojo {
 
     function getIdCuerpo() {
         return $this->idCuerpo;
+    }
+
+    function getDato() {
+        return $this->dato;
     }
 
     function setIdDisenio($idDisenio) {
@@ -46,7 +50,9 @@ class DisenioPojo {
         $this->idCuerpo = $idCuerpo;
     }
 
+    function setDato($dato) {
+        $this->dato = $dato;
+    }
 
 
-    
 }

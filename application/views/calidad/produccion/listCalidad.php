@@ -103,7 +103,7 @@
                                        
                                         
                                         echo '</TD><TD>';
-                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'fa fa-eye fa-fw'  href='$base/produccion/datos/" .$obj->getIdCalidad() . "'></a>";
+                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'glyphicon glyphicon-plus'  href='$base/produccion/datos/" .$obj->getIdCalidad() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';

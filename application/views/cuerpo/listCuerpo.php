@@ -50,6 +50,10 @@
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
+                                if (empty($datos)) {
+                                echo '<div style="text-align: center" class="alert-danger"><strong>No existen registros!!!</strong> Intenta con otro dato <span class="glyphicon glyphicon-alert"><span/></div >';
+                            }
+                            echo '</div>';
                             ?>
                         </div>
                     </div>

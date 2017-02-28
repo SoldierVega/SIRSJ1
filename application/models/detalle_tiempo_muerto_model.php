@@ -58,7 +58,7 @@ class detalle_tiempo_muerto_model extends CI_Model implements IModelAbastract{
     
     public function getArea(){
         $this->db->order_by('area');
-        $area = $this->db->query('SELECT idArea, area AS Area FROM sir.area');
+        $area = $this->db->query('SELECT idArea, area AS Area FROM area');
         if ($area->num_rows() > 0){
             return $area->result();
         }
@@ -66,7 +66,7 @@ class detalle_tiempo_muerto_model extends CI_Model implements IModelAbastract{
     
     public function getTipoParo(){
         $this->db->order_by('nomParo');
-        $area = $this->db->query('SELECT idTipoParo, nomParo AS Paro FROM sir.tipoparo');
+        $area = $this->db->query('SELECT idTipoParo, nomParo AS Paro FROM tipoparo');
         if ($area->num_rows() > 0){
             return $area->result();
         }

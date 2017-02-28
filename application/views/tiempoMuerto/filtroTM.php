@@ -86,7 +86,7 @@
                                             
                                             
                                             <tr>
-                                                <td><input class='btn btn-success ' type="submit" value="Generar"></td>
+                                                <td><input class='btn btn-success ' type="submit" value="Buscar"></td>
                                             </tr>
                                         </table>
                                     </div>

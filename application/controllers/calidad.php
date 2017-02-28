@@ -101,7 +101,7 @@ class calidad extends CI_Controller{
         $this->load->view('calidad/delCalidad.php',$datos);
     }
     
-    
+  
             
     function update($idCalidad){
         $calidad = new CalidadPojo();
@@ -126,7 +126,7 @@ class calidad extends CI_Controller{
             return;
         }
         $this->calidad_model->update($calidad); // Invocamos nuestro metodo de insertar
-        $this->index(); // Invocamos nuestro metodo listar
+        $this->consultar(); // Invocamos nuestro metodo listar
     }
     
     

@@ -15,11 +15,11 @@ class CausaPojo {
     
     private $idCausa;
     private $tipoCausa;
+    private $dato;
     
     function __construct() {
         
     }
-    
     function getIdCausa() {
         return $this->idCausa;
     }
@@ -28,11 +28,19 @@ class CausaPojo {
         return $this->tipoCausa;
     }
 
+    function getDato() {
+        return $this->dato;
+    }
+
     function setIdCausa($idCausa) {
         $this->idCausa = $idCausa;
     }
 
     function setTipoCausa($tipoCausa) {
         $this->tipoCausa = $tipoCausa;
+    }
+
+    function setDato($dato) {
+        $this->dato = $dato;
     }
 }

@@ -27,18 +27,18 @@
                     <div class="form-group-lg" style="width: 100%">
                         
                         <div style="width: 30%; float: right;">
-                            <center> <label class="fa fa-spinner fa fa-large"></label></center>
+                            <center> <label class="fa fa-spinner fa-pulse fa-3x fa-fw"></label></center>
                         </div>
                         <div style="width: 60%; float: left;">
                             <img src="<?php echo base_url() . "/media/img/warning.png"; ?>" width="30%" height="30%"><br><br>
                         </div>
                     </div>
                 </form>
-                <center><label> Está seguro de eliminar la calidad de la línea <?php echo $cal->idLinea; ?>,
-                        del turno <?php echo $cal->turno; ?>, del día <?php echo $cal->fecha; ?>.</label></center>
+                <center><label>¡¡Está seguro de eliminar la calidad de la línea <?php echo $cal->idLinea; ?>,
+                        turno <?php echo $cal->turno; ?>, día <?php echo $cal->fecha; ?>!! Esto ocasionara que se pierdan los datos de Producción y Calidad, asociados con este registros.</label></center>
             </section>
             <center>
-                
+                <label>¿Desea continuar ?</label>
                             <form style="width: 80%;" method="POST" action="<?php echo site_url('/produccion/delete/' . $cal->idCalidad) ?>">
                                 <div> 
                                     <div class="hidden">

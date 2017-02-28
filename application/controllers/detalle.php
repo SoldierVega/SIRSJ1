@@ -43,6 +43,15 @@ class detalle extends CI_Controller{
          
     }
     
+    function qued($idCalidad){
+        $data['datos']=  $this->detalle_calidad_model->queryd($idCalidad);
+        $data['base'] = $this->base;
+        //$data['title'] = 'Detalle de Calidad';
+        $this->load->view('/templates/header',$data);
+        $this->load->view('calidad/detalleCalidad/listDetalle.php', $data);
+        $this->load->view('templates/copyright',$data);
+    }
+    
     function consultar(){
         $calidad = new CalidadPojo();
         $calidad->setTxtFecha($this->input->post('txtFecha', TRUE));

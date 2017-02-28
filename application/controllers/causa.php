@@ -52,6 +52,28 @@ class causa extends CI_Controller{
         $this->causa_model->insert($causa); // Invocamos nuestro metodo de insertar
         $this->index(); // Invocalos la opción listar 
     }
+    function Buscar(){
+        $causa = new CausaPojo();
+        $causa->setDato($this->input->post('dato', TRUE));
+        $data['datos'] = $this->causa_model->Buscar($causa);
+        $data['base'] = $this->base;
+        $data['title'] = 'Datos Cuerpo';
+        $this->load->view('/templates/header',$data);
+        $this->load->view('causa/listCausa.php', $data);
+        $this->load->view('templates/copyright',$data);
+    }
+    function Lim(){
+        $causa = new CausaPojo();
+        $causa->setDato($this->input->post('dato', TRUE));
+        $data['datos'] = $this->causa_model->Lim($causa);
+        $data['base'] = $this->base;
+        $data['title'] = 'Datos Cuerpo';
+        $this->load->view('/templates/header',$data);
+        $this->load->view('causa/listCausa.php', $data);
+        $this->load->view('templates/copyright',$data);
+    }
+            
+    
     function quer($idCausa){
         $data['ca']=  $this->causa_model->que($idCausa);
         //$this->load->view('/templates/header',$data);

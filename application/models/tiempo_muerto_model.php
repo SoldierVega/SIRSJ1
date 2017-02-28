@@ -131,7 +131,7 @@ class tiempo_muerto_model extends CI_Model implements IModelAbastract{
     // Funciones para traer los valores y no los ID´s de las llaves foraneas
     public function getTripulacion(){
         $this->db->order_by('tripulacion');
-        $tripulacion = $this->db->query('SELECT idTripulacion, tripulacion AS Tripulacion FROM sir.tripulacion');
+        $tripulacion = $this->db->query('SELECT idTripulacion, tripulacion AS Tripulacion FROM tripulacion');
         if ($tripulacion->num_rows() > 0){
             return $tripulacion->result();
         }
@@ -139,7 +139,7 @@ class tiempo_muerto_model extends CI_Model implements IModelAbastract{
     
     public function getLinea(){
         $this->db->order_by('linea');
-        $linea = $this->db->query('SELECT idLinea, linea AS Linea FROM sir.linea');
+        $linea = $this->db->query('SELECT idLinea, linea AS Linea FROM linea');
         if ($linea->num_rows() > 0){
             return $linea->result();
         }

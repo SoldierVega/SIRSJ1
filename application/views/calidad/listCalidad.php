@@ -32,7 +32,7 @@
                                     echo '</TD><TD>';
                                     echo '<b><center> # Detalles';
 
-                                    echo '</TD><TD colspan=3>';
+                                    echo '</TD><TD colspan=4>';
                                     echo '<b><center>Acción ';
                                     echo '</TD></TR>';
 
@@ -67,14 +67,17 @@
 
                                         echo '</TD><TD>';
                                         echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/calidad/quer/" .$obj->getIdCalidad() . "'></a>";
+                                        
+                                        echo '</TD><TD>';
+                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'glyphicon glyphicon-plus'  href='$base/detalle/datos/" .$obj->getIdCalidad() . "'></a>";
 
                                         echo '</TD><TD>';
-                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'fa fa-eye fa-fw'  href='$base/detalle/datos/" .$obj->getIdCalidad() . "'></a>";
+                                        echo "<a  class = 'glyphicon glyphicon-eye-open'  href='$base/detalle/qued/" .$obj->getIdCalidad() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                 echo '</table>';
                                 if (empty($datos)) {
-                                echo '<div style="text-align: center" class="alert-danger"><strong>No existen registrosx!!!</strong> Intenta con otro dato <span class="glyphicon glyphicon-alert"><span/></div >';
+                                echo '<div style="text-align: center" class="alert-danger"><strong>No existen registros!!!</strong> Intenta con otro dato <span class="glyphicon glyphicon-alert"><span/></div >';
                             }
                             echo '</div>';
                             ?>

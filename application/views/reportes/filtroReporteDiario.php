@@ -17,7 +17,7 @@
                                     </div>
                                     <div id="collapseOne" class="panel-collapse collapse">
                                         <div class="panel-body">
-                                            <form id="addVenta" method="POST"action="<?php echo base_url() . "produccion/consultar"; ?>">
+                                            <form id="addVenta" method="POST"action="<?php echo site_url('/Reportes/Excel/setExcel/') ?>">
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>

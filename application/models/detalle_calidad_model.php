@@ -97,9 +97,52 @@ class detalle_calidad_model extends CI_Model implements IModelAbastract{
     }
     
     
+    
+    
+    public function queryd($idCalidad ){
+        $qry = null;
+        
+            $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion,
+                T.nomFacilitador, T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador, 
+                D.nomDisenio AS idDisenio, F.formato AS idFormato, TIP.tipo AS idTipo, CA.tipoCausa AS idCausa,
+                DE. idDetalle, DE.numPiezas 
+                    FROM calidad AS C
+                        INNER JOIN detallecalidad AS DE ON C.idCalidad = DE.idCalidad
+                        INNER JOIN tripulacion AS T ON C.idTripulacion = T.idTripulacion 
+                        INNER JOIN linea AS L ON C.idLinea = L.idLinea 
+                        INNER JOIN esmaltador AS E ON C.idEsmaltador = E.idEsmaltador
+                        INNER JOIN disenio AS D ON C.idDisenio = D.idDisenio 
+                        INNER JOIN formato AS F ON C.idFormato = F.idFormato
+                        INNER JOIN tipo AS TIP ON DE.idTipo = TIP.idTipo
+                        INNER JOIN causa AS CA ON DE.idCausa = CA.idCausa WHERE C.idCalidad = ".$idCalidad);
+        
+        $data = array();
+        foreach ($qry->result() as $key => $reg){
+            $create = new factory();
+            $caldes = $create->create('calde');
+            
+            $calde = new CaldePojo(); 
+            $calde->setIdCalidad($reg->idCalidad);           
+            $calde->setFecha($reg->fecha);
+            $calde->setTurno($reg->turno);
+            $calde->setIdTripulacion($reg->idTripulacion);
+            $calde->setIdLinea($reg->idLinea);
+            $calde->setIdEsmaltador($reg->idEsmaltador);
+            $calde->setIdDisenio($reg->idDisenio);
+            $calde->setIdFormato($reg->idFormato);        
+            $calde->setIdCausa($reg->idCausa);
+            $calde->setIdTipo($reg->idTipo);
+            $calde->setNumPiezas($reg->numPiezas);
+            
+            array_push($data, $calde);
+        }
+        return $data;
+    }
+
+    
     public function getCausa(){
         $this->db->order_by('tipoCausa');
-        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM sir.causa');
+        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM causa');
         if ($causa->num_rows() > 0){
             return $causa->result();
         }
@@ -107,7 +150,7 @@ class detalle_calidad_model extends CI_Model implements IModelAbastract{
     
     public function getTipo(){
         $this->db->order_by('tipo');
-        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM sir.tipo');
+        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM tipo');
         if ($tipo->num_rows() > 0){
             return $tipo->result();
         }

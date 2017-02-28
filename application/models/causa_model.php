@@ -66,6 +66,47 @@ class causa_model extends CI_Model implements IModelAbastract{
         return $data;
     }
 
+   public function Buscar($causa){
+       if ($causa instanceof CausaPojo){
+           $qry = null;
+           $qry= $this->db->query("SELECT C.idCausa, C.tipoCausa "
+                   . "FROM causa AS C WHERE C.tipoCausa LIKE '%".$causa->getDato()."%'");
+        $data = array();
+            foreach ($qry->result() as $key => $reg){
+                $crear = new factory();
+                $causas = $crear->create('causa');
+            
+                $causa = new CausaPojo();
+                $causa->setIdCausa($reg->idCausa);
+                $causa->setTipoCausa($reg->tipoCausa);
+            
+                array_push($data, $causa);
+            }
+            return $data;
+        }
+   }
+   
+   public function Lim($causa){
+       if ($causa instanceof CausaPojo){
+           $qry = null;
+           $qry= $this->db->query("SELECT C.idCausa, C.tipoCausa "
+                   . "FROM causa AS C LIMIT ".$causa->getDato());
+        $data = array();
+            foreach ($qry->result() as $key => $reg){
+                $crear = new factory();
+                $causas = $crear->create('causa');
+            
+                $causa = new CausaPojo();
+                $causa->setIdCausa($reg->idCausa);
+                $causa->setTipoCausa($reg->tipoCausa);
+            
+                array_push($data, $causa);
+            }
+            return $data;
+        }
+   }
+
+   
     public function update($causa) {
         if ($causa instanceof CausaPojo){
             $datos = array(

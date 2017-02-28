@@ -46,7 +46,7 @@ class disenio_model extends CI_Model implements IModelAbastract {
         $qry = null;
         if (empty($idDisenio)){
             $qry = $this->db->query('SELECT D.idDisenio, D.nomDisenio, C.identificador AS idCuerpo '
-                                    . 'FROM disenio AS D INNER JOIN cuerpo AS C ON D.idCuerpo = C.idCuerpo');
+                                    . 'FROM disenio AS D INNER JOIN cuerpo AS C ON D.idCuerpo = C.idCuerpo LIMIT 5');
         } else {
             $qry = $this->db->query('SELECT * FROM disenio WHERE idDisenio = ' . $idDisenio);
         }
@@ -65,6 +65,55 @@ class disenio_model extends CI_Model implements IModelAbastract {
         }
         return $data;
     }
+    
+    
+    
+    
+    public function Buscar($disenio) {
+        if ($disenio instanceof DisenioPojo){
+            $qry = null;
+            $qry = $this->db->query("SELECT D.idDisenio, D.nomDisenio, "
+                    . "C.identificador AS idCuerpo "
+                    . "FROM disenio AS D INNER JOIN cuerpo AS C "
+                    . "ON D.idCuerpo = C.idCuerpo WHERE D.nomDisenio LIKE '%".$disenio->getDato()."%'");
+        $data = array();
+        foreach ($qry->result() as $key => $reg){
+            // Implementación del Factory
+            $crear = new factory();
+            $disenio = $crear->create('disenio');
+            
+            $diseni = new DisenioPojo();
+            $diseni ->setIdDisenio($reg->idDisenio);
+            $diseni->setNomDisenio($reg->nomDisenio);
+            $diseni->setIdCuerpo($reg->idCuerpo);            
+            array_push($data, $diseni);
+        }
+        return $data;
+        }
+    }
+    
+    public function Lim($disenio) {
+        if ($disenio instanceof DisenioPojo){
+            $qry = null;
+            $qry = $this->db->query("SELECT D.idDisenio, D.nomDisenio, "
+                    . "C.identificador AS idCuerpo "
+                    . "FROM disenio AS D INNER JOIN cuerpo AS C "
+                    . "ON D.idCuerpo = C.idCuerpo LIMIT ".$disenio->getDato());
+        $data = array();
+        foreach ($qry->result() as $key => $reg){
+            // Implementación del Factory
+            $crear = new factory();
+            $disenio = $crear->create('disenio');
+            
+            $diseni = new DisenioPojo();
+            $diseni ->setIdDisenio($reg->idDisenio);
+            $diseni->setNomDisenio($reg->nomDisenio);
+            $diseni->setIdCuerpo($reg->idCuerpo);            
+            array_push($data, $diseni);
+        }
+        return $data;
+        }
+    }
 
     
     // Metodo para Actualizar un registro o algun dato de ese registro.
@@ -82,7 +131,7 @@ class disenio_model extends CI_Model implements IModelAbastract {
     // Funciones para traer los valores y no los ID´s de las llaves foraneas
     public function getCuerpo(){
         $this->db->order_by('identificador');
-        $cuerpo = $this->db->query('SELECT idCuerpo, identificador AS Identificador FROM bd.cuerpo');
+        $cuerpo = $this->db->query('SELECT idCuerpo, identificador AS Identificador FROM cuerpo');
         if ($cuerpo->num_rows() > 0){
             return $cuerpo->result();
         }

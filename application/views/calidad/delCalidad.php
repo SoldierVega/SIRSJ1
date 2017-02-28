@@ -5,7 +5,7 @@
 <section >
     <section class="modal-dialog"    >
         
-        <section class="modal-content" style="width: 70%; left: 10%;">
+        <section class="modal-content" style="width: 90%; left: 10%;">
             <section class="modal-header">
                 <form style="width: 100%;" method="POST" action="<?php echo site_url('/calidad/consultar') ?>">
                     
@@ -34,11 +34,12 @@
                         </div>
                     </div>
                 </form>
-                <center><label> Está seguro de eliminar la calidad de la línea <?php echo $cal->idLinea; ?>,
-                        del turno <?php echo $cal->turno; ?>, del día <?php echo $cal->fecha; ?>.</label></center>
+                <center><label> ¡¡Está seguro de eliminar la calidad de la línea <?php echo $cal->idLinea; ?>,
+                        turno <?php echo $cal->turno; ?>, día <?php echo $cal->fecha; ?>!! Esto ocasionara que se pierdan los 
+                        datos de Producción y Calidad, asociados con este registros.</label></center>
             </section>
             <center>
-                
+                <label>¿Desea continuar ?</label>
                             <form style="width: 80%;" method="POST" action="<?php echo site_url('/calidad/delete/' . $cal->idCalidad) ?>">
                                 <div> 
                                     <div class="hidden">

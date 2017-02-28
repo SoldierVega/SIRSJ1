@@ -57,7 +57,7 @@
                                        
                                         
                                         echo '</TD><TD>';
-                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'fa fa-eye fa-fw'  href='$base/detalletm/datos/" .$obj->getIdTiempoMuerto() . "'></a>";
+                                        echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'glyphicon glyphicon-plus'  href='$base/detalletm/datos/" .$obj->getIdTiempoMuerto() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
