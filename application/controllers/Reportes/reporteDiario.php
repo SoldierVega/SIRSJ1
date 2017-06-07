@@ -13,13 +13,14 @@
  */
 class reporteDiario extends CI_Controller{
     
-     var $base;
+    var $base;
     var $css;
     var $jquery;
     
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('calidad_model');        
     }
     
@@ -27,7 +28,7 @@ class reporteDiario extends CI_Controller{
         
         $data['datos'] = $this->calidad_model->query();
         $data['base'] = $this->base;
-        $data['title'] = 'Datos Calidad';
+        $data['title'] = 'Reporte Diario';
         $this->load->view('templates/header',$data);
         $this->load->view('reportes/filtroReporteDiario.php', $data);
         $this->load->view('templates/copyright',$data);

@@ -10,8 +10,7 @@
  * Description of Bienvenido
  *
  * @author Diego
- */
-
+*/
 require 'AbstracControler.php';
 class Bienvenido extends CI_Controller {
     
@@ -21,23 +20,46 @@ class Bienvenido extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
+        $this->load->helper(array('url'));
         $this->css = $this->config->item('css');
+        $this->load->model('metod_model');        
     }
+
+
+    function index(){
+        if($this->session->userdata('perfil') == FALSE || 
+                $this->session->userdata('perfil') != 'Administrador' 
+                and $this->session->userdata('perfil') != 'Capturista' 
+                and $this->session->userdata('perfil') != 'Consultor'){
+			redirect(base_url().'login');  
+		}else{
+                        $data['css'] = $this->css;
+                        $data['base'] = $this->base;
+                        $data['linea'] = $this->metod_model->getLinea();
+                        $this->load->view('/templates/header', $data);
+                        $this->load->view('/inicio/inicio.php', $data);
+                        $this->load->view('/pareto/paretos.php', $data);
+                        $this->load->view('templates/copyright',$data);
+                    }
+                }
     
-    function showBienvenida($error = ''){
-        $data['css'] = $this->css;
-        $data['base'] = $this->base;
-        $data['error'] = $error;
-        $data['title'] = "SIR-SJ1";
-        $data['user'] = '';
-        $data['pwd'] = '';
-        $this->load->view('/templates/header', $data);
-        $this->load->view('/inicio/inicio.php', $data);
-        $this->load->view('templates/copyright',$data);
-    }
     
-    public function index(){
-        $msg = 'Bienvenido!!  SIR-SJ1';
-        $this->showBienvenida($msg);
+    function pareto(){
+        if($this->session->userdata('perfil') == FALSE || 
+                $this->session->userdata('perfil') != 'Administrador'  
+                and $this->session->userdata('perfil') != 'Capturista'
+                and $this->session->userdata('perfil') != 'Consultor'){
+                redirect(base_url().'login','refresh');
+                
+		}else{
+                    $data['css'] = $this->css;
+                    $data['base'] = $this->base;
+                    $data['linea'] = $this->metod_model->getLinea();
+                    $this->load->view('/templates/header', $data);
+                    $this->load->view('/inicio/inicio.php', $data);
+                    $this->load->view('/pareto/paretosF.php', $data);
+                    $this->load->view('templates/copyright',$data);
+                }           
     }
 }

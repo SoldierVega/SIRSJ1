@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -19,6 +18,7 @@ class disenio extends CI_Controller{
     
     public function __construct() {
         parent::__construct();
+        $this->load->library(array('session'));
         $this->base = $this->config->item('base_url');
         $this->load->model('disenio_model');        
     }
@@ -48,10 +48,10 @@ class disenio extends CI_Controller{
         if (empty($disenio->getNomDisenio())){
             $data['cuerpo'] = $this->disenio_model->getCuerpo();
             
-//            $this->load->view('/templates/header',$data);
+            $this->load->view('/templates/header',$data);
             $data['title_page'] = 'Agrega Diseño';
             $this->load->view('disenio/addDisenio.php',$data);
-//            $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
@@ -78,10 +78,10 @@ class disenio extends CI_Controller{
         if (empty($disenio->getNomDisenio())){
             $data['cuerpo'] = $this->disenio_model->getCuerpo();
             
-//            $this->load->view('/templates/header',$data);
+            $this->load->view('/templates/header',$data);
             $data['title_page'] = 'Actualiza Diseño';
             $this->load->view('disenio/editDisenio.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }
@@ -125,3 +125,4 @@ class disenio extends CI_Controller{
         }
     }
 }
+

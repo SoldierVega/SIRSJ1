@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <h3 class="page-header">Formatos</h3>
             <?php
-                echo "<code><a data-toggle='modal' data-target='#modalAgrega' "
+                echo "<code><a "
                 . "class='btn btn-primary btn btn-large' href='$base/formato/insert/'>"
                         . " <span class='glyphicon-plus'></span> Nuevo</a></code>";         
             ?>
@@ -40,7 +40,7 @@
                                             echo "<a class = 'fa fa-trash-o fa-lg' href='$base/formato/delete/" . $obj->getIdFormato() . "'></a>";
 
                                             echo '</TD><TD>';
-                                            echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/formato/quer/" .$obj->getIdFormato() . "'></a>";
+                                            echo "<a  class = 'fa fa-pencil fa-fw' href='$base/formato/update/" .$obj->getIdFormato() . "'></a>";
                                             echo '</TD></TR>';
                                         }
                                 echo '</table>';
@@ -56,15 +56,3 @@
         </div>
     </div>
 </div>
-
-<section id="modalAgrega" class="modal fade" role="dialog">
-            <?php
-            include_once (dirname(__FILE__) . '/addFormato.php');
-            ?>
-</section>
-
-<section id="modalActualizar" class="modal fade" role="dialog">
-            <?php
-            include_once (dirname(__FILE__) . '/editFormato.php');
-            ?>
-</section>

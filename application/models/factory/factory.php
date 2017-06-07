@@ -28,6 +28,9 @@ require __DIR__. '/../pojo/linea_pojo.php';
 require __DIR__. '/../pojo/equivalencia_pojo.php';
 require __DIR__. '/../pojo/tiempo_muerto_pojo.php';
 require __DIR__. '/../pojo/detalle_tiempo_muerto_pojo.php';
+require __DIR__. '/../pojo/rechazo_pojo.php';
+require __DIR__. '/../pojo/tiemde_pojo.php';
+require __DIR__. '/../pojo/user_pojo.php';
 
 class factory {
     
@@ -65,6 +68,12 @@ class factory {
             $instancia = new TiempoMuertoPojo();
         }else if(strcmp($tipo, 'detalletiempom') == 0){
             $instancia = new DetalleTiempoMuertoPojo();
+        }else if(strcmp($tipo, 'rechazo') == 0){
+            $instancia = new RechazoPojo();
+        }else if(strcmp($tipo, 'tiemde') == 0){
+            $instancia = new TiemdePojo();
+        }else if(strcmp($tipo, 'user') == 0){
+            $instancia = new UserPojo();
         }
         return $instancia;
     }

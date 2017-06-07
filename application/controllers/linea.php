@@ -19,6 +19,7 @@ class linea extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('linea_model');        
     }
     
@@ -43,10 +44,10 @@ class linea extends CI_Controller{
         $linea= new LineaPojo();
         $linea->setLinea($this->input->post('linea', TRUE));
         if (empty($linea->getLinea())){
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Agrega Linea';
             $this->load->view('linea/addLinea.php',$data);
-//            $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
@@ -67,10 +68,10 @@ class linea extends CI_Controller{
         }
         $linea->setLinea($this->input->post('linea', TRUE));
         if (empty($linea->getLinea())){           
-//            $this->load->view('/templates/header');
-            $data['title_page'] = 'Actualiza Linea';
+           $this->load->view('/templates/header');
+           $data['title_page'] = 'Actualiza Linea';
             $this->load->view('linea/editLinea.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }

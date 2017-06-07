@@ -86,9 +86,9 @@ class equivalencia_model extends CI_Model implements IModelAbastract{
         }
     }
     
-    public function getCuerpo(){
+   public function getCuerpo(){
         $this->db->order_by('identificador');
-        $cuerpo = $this->db->query('SELECT idCuerpo, cuerpo AS Cuerpo FROM sir.cuerpo');
+        $cuerpo = $this->db->query('SELECT idCuerpo, cuerpo AS Cuerpo FROM cuerpo');
         if ($cuerpo->num_rows() > 0){
             return $cuerpo->result();
         }
@@ -96,7 +96,7 @@ class equivalencia_model extends CI_Model implements IModelAbastract{
     
     public function getFormato(){
         $this->db->order_by('formato');
-        $disenio = $this->db->query('SELECT idFormato, formato AS Formato FROM sir.formato');
+        $disenio = $this->db->query('SELECT idFormato, formato AS Formato FROM formato');
         if ($disenio->num_rows() > 0){
             return $disenio->result();
         }

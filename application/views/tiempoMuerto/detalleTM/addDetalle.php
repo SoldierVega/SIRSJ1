@@ -1,29 +1,5 @@
-<script type="text/javascript">
-    $(document).ready(function (){
-        $("#area").change(function (){
-           $("#area option:selected").each(function (){
-               area = $('#area').val();
-               $.post("<?php echo base_url() . "detalletm/getLinea"; ?>",{
-                   area: area
-               });
-           }); 
-        });
-    });
-    
-     $(document).ready(function (){
-        $("#paro").change(function (){
-           $("#paro option:selected").each(function (){
-               paro = $('#paro').val();
-               $.post("<?php echo base_url() . "detalletm/getTipo"; ?>",{
-                   paro: paro
-               });
-           }); 
-        });
-    });
-    
-</script>
-
-<section>
+<script src="<?php echo base_url() . 'media/js/validacion.js' ?>" type="text/javascript"></script>
+   <section>
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
@@ -118,7 +94,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <button data-toggle='modal' data-target='#modalDetalle' type="submit" class="btn btn-info btn btn-lg">Guardar</button>
+                            <button  type="submit" class="btn btn-info glyphicon glyphicon-ok"></button>
                         </div> 
                     </div>
                 </form>
@@ -126,6 +102,10 @@
         </section>
     </section>
 </section>
+
+
+
+
 
 
 

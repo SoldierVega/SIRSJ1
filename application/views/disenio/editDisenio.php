@@ -1,3 +1,7 @@
+<script src="<?php echo "$base/$jquery"; ?>"></script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function (){
         $("#cuerpo").change(function (){
@@ -10,27 +14,30 @@
         });
     });
 </script>
+    
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><?php echo $title_page ?></h1>
+        </div>
 
-<section>
-    <section class="modal-dialog" >
-        <section class="modal-content">
-            <section class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                
-            </section>
-            <center>
-                <form style="width: 80%;" action="<?php echo site_url('/disenio/update/'); ?>">
-                    <fieldset class="fieldset">
-                        <legend>
-                            <hgroup>
-                              Editar Diseño
-                            </hgroup>
-                        </legend>
-                            
+    </div>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form id="editCuerpo" method="POST">
                                 <div>
                                     <div class="input-group">
                                         <label for="diseño">Diseño</label>
-                                        <input type="text" class="form-control" name="nomDisenio" placeholder="San Diego CREAM" value="<?php if (isset($nomDisenio)){ echo $nomDisenio;} ?>">
+                                        <input type="text" class="form-control" name="nomDisenio" placeholder="San Diego CREAM" value="<?php if (isset($nomDisenio)){
+echo $nomDisenio;} ?>">
                                     </div>
                                     <div class="input-group">
                                         <label for="idCuerpo">Cuerpo</label>
@@ -50,11 +57,11 @@
                                 <div class="form-group">
                                         <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
                                 </div>
-                    </fieldset>
-                </form>
-            </center>
-        </section>
-    </section>
-</section>
-
-                            
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

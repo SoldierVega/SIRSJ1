@@ -1,17 +1,14 @@
+<script src="<?php echo base_url() . 'media/js/validacion.js' ?>" type="text/javascript"></script>
 <script>
-    $(document).ready(function () {
-        $("#primera").keyup(function () {
-            var primera = parseInt($(this).val());
-            $("#segunda").keyup(function () {
-                var segunda = parseInt($(this).val());
-                var total = primera + segunda;
-                $("#total").val(total);
-            });
-
-        });
-    });
-
-</script>
+    // tooltip demo
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+    </script>
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="">
@@ -62,48 +59,56 @@
                         </div>
                         <table>
                             <tr>
-                                <td><label for="corte">Cajas Primera</label></td>
+                                <td><label for="corte">* Cajas Primera</label></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><label for="corte">Cajas Segunda</label></td>
+                                <td><label for="corte">* Cajas Segunda</label></td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><label for="corte">Piezas Scrapt</label></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td><label for="corte">Cajas Empacadas</label></td>    
+                                <td><label for="corte">* Piezas Scrapt</label></td>
+                                  
                             </tr>
-                            <tr>
-                                <td><input type="number" class="form-control" id="primera" 
-                                           name="cajasPrimera" placeholder="1" required="TRUE"></td>
+                            <tr >
+                                <td class="input-group  has-feedback tooltip-demo" data-validate="number" col-sm-10 data-validate="length" data-length="1">
+                                    <input  type="number"class="form-control"
+                                                       name="cajasPrimera" placeholder="120" required ari="TRUE"
+                                                      data-toggle="tooltip" data-placement="bottom" title="Ingresar Numero de Cajas" >
+                                                <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"> </span></span>
+                                            </td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><input type="number" class="form-control" id="segunda" 
-                                           name="cajasSegunda" placeholder="1" required="TRUE"></td>
+                                <td class="input-group  has-feedback tooltip-demo" data-validate="number" col-sm-10 data-validate="length" data-length="1">
+                                    <input type="number" class="form-control" 
+                                           name="cajasSegunda" placeholder="120" required ari="TRUE"
+                                                      data-toggle="tooltip" data-placement="bottom" title="Ingresar Numero de Cajas">
+                                    <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"> </span></span>
+                                </td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
                                 <td>&nbsp;</td>
-                                <td><input type="number" class="form-control" name="pzaScrap" placeholder="1" required="TRUE"></td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td>&nbsp;</td>
-                                <td><input  readonly="readonly" type="number" id="total" class="form-control" id="cajasEmpacadas" 
-                                           name="cajasEmpacadas" placeholder="1" required="TRUE"></td>                        
+                                <td class="input-group  has-feedback tooltip-demo" data-validate="number" col-sm-10 data-validate="length" data-length="1">
+                                    <input type="number" class="form-control" 
+                                           name="pzaScrap" placeholder="120" required ari="TRUE"
+                                                      data-toggle="tooltip" data-placement="bottom" title="Ingresar Numero de Cajas">
+                                    <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"> </span></span>
+                                </td>
+                                                       
                             </tr>
                         </table><br>                               
-                        <button type="submit" class="btn btn-info glyphicon glyphicon-ok">Ok</button><br><br>
-                        <div class="panel">
-                        </div>
+                        <button type="submit" class="btn btn-info glyphicon glyphicon-ok"></button><br><br>
+                            <div align="left">
+                                <font align="right" color="red" size=0> <i>(Los Campos Marcados con * son Obligatorios)</i></font>
+                            </div>
                     </div>
                 </form>
             </center>

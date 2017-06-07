@@ -96,10 +96,10 @@
                                         echo $obj->getNumPiezas();
 
                                         echo '</TD><TD>';
-                                        echo "<a class = 'fa fa-trash-o fa-lg' href='$base/detalle/delete/" . $obj->getIdDetalle() . "'></a>";
+                                        echo "<a data-toggle='modal' data-target='#modalEliminar' class = 'fa fa-trash-o fa-lg' href='$base/detalle/que/" . $obj->getIdDetalle() . "'></a>";
 
-                                        echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/detalle/quer/" .$obj->getIdDetalle() . "'></a>";
+//                                        echo '</TD><TD>';
+//                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/detalle/que/" .$obj->getIdDetalle() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
@@ -118,11 +118,18 @@
     ?>
 </section>
 
-<section id="modalActualizar" class="modal fade" role="dialog">
+<section id="modalEliminar" class="modal fade" role="dialog">
     <?php
-        include_once (dirname(__FILE__) . '/editCalidad.php');
+        include_once (dirname(__FILE__) . '/delDetalle.php');
     ?>
 </section>
+
+<section id="modalActualizar" class="modal fade" role="dialog">
+    <?php
+        include_once (dirname(__FILE__) . '/editDetalle.php');
+    ?>
+</section>
+
 <section id="modalDetalle" class="modal fade" role="dialog">
     <?php
         include_once (dirname(__FILE__) . '/detalleCalidad/addDetalle.php');

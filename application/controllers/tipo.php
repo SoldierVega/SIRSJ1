@@ -19,6 +19,7 @@ class tipo extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('tipo_model');        
     }
     
@@ -43,10 +44,10 @@ class tipo extends CI_Controller{
         $tipo = new TipoPojo();
         $tipo->setTipo($this->input->post('tipo', TRUE));
         if (empty($tipo->getTipo())){
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Agrega Tipo';
             $this->load->view('tipo/addTipo.php',$data);
-//            $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
@@ -67,10 +68,10 @@ class tipo extends CI_Controller{
         }
         $tipo->setTipo($this->input->post('tipo', TRUE));
         if (empty($tipo->getTipo())){           
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Actualiza Esmaltador';
             $this->load->view('tipo/editTipo.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }

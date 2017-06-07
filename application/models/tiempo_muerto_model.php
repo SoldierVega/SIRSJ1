@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -112,7 +112,11 @@ class tiempo_muerto_model extends CI_Model implements IModelAbastract{
     }
 
     
-    public function quer($idTiempoMuerto) {
+    public function ver(){
+        
+    }
+
+        public function quer($idTiempoMuerto) {
         $this->db->where('idTiempoMuerto', $idTiempoMuerto);
         $datos = $this->db->get('tiempomuerto');
         return $datos->row();

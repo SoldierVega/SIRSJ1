@@ -65,6 +65,12 @@ class cuerpo_model extends CI_Model implements IModelAbastract{
         return $data;
     }
     
+    public function quer($idCuerpo) {
+        $this->db->where('idCuerpo', $idCuerpo);
+        $datos = $this->db->get('cuerpo');
+        return $datos->row();
+    }
+    
     public function que($idCuerpo = '') {
         $this->db->where('idCuerpo', $idCuerpo);
         $qry = null;

@@ -27,7 +27,7 @@
                                     echo '</TD><TD>';
                                     echo '<b><center># Detalles';
                                    
-                                    echo '</TD><TD colspan=3>';
+                                    echo '</TD><TD colspan=4>';
                                     echo '<b><center>Acción ';
                                     echo '</TD></TR>';
 
@@ -53,11 +53,14 @@
                                         echo "<a data-toggle='modal' data-target='#modalEliminar' class = 'fa fa-trash-o fa-lg' href='$base/tiempomuerto/datos/" . $obj->getIdTiempoMuerto() . "'></a>";
 
                                         echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/calidad/quer/" .$obj->getIdTiempoMuerto() . "'></a>";
+                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/tiempomuerto/quer/" .$obj->getIdTiempoMuerto() . "'></a>";
                                        
                                         
                                         echo '</TD><TD>';
                                         echo "<a  data-toggle='modal' data-target='#modalDetalle' class = 'glyphicon glyphicon-plus'  href='$base/detalletm/datos/" .$obj->getIdTiempoMuerto() . "'></a>";
+                                        
+                                        echo '</TD><TD>';
+                                        echo "<a  class = 'glyphicon glyphicon-eye-open'  href='$base/detalletm/qued/"  .$obj->getIdTiempoMuerto() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';

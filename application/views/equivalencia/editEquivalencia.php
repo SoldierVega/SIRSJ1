@@ -1,50 +1,29 @@
 <script src="<?php echo "$base/$jquery"; ?>"></script>
 
+<div id="page-wrapper">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header"><?php echo $title_page ?></h1>
+        </div>
 
-<script type="text/javascript">
-    $(document).ready(function (){
-        $("#formato").change(function (){
-           $("#formato option:selected").each(function (){
-               formato = $('#formato').val();
-               $.post("http://localhost/SJSIR/equivalencia/getFormato",{
-                   formato: formato
-               });
-           }); 
-        });
-    });
-    
-    $(document).ready(function (){
-        $("#cuerpo").change(function (){
-           $("#cuerpo option:selected").each(function (){
-               cuerpo = $('#cuerpo').val();
-               $.post("http://localhost/SJSIR/equivalencia/getCuerpo",{
-                   cuerpo: cuerpo
-               });
-           }); 
-        });
-    });
-</script>
-
-
-<section>
-    <section class="modal-dialog" >
-        <section class="modal-content">
-            <section class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <center><h4><h1><?php echo $title_page ?></h1></h4></center>
-            </section>
-            <center>
-                <form style="width: 80%;" action="<?php echo site_url('/equivalencia/update/' . $pl->idEquivalencia); ?>">
-                    <fieldset class="fieldset">
-                        <legend>
-                            <hgroup>
-                               
-                            </hgroup>
-                        </legend>      
+    </div>
+           
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                            
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form id="addCalidad" method="POST">       
                                 <div> 
+ 
                                     <div class="form-inline">
                                         <table>
-                                            <tr>            
+                                            <tr>              
+                                                
                                                 <td>
                                                     <label for="">Formato </label>
                                                 </td>
@@ -111,13 +90,14 @@
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
-                                    </div> 
-                                </div>
-                    </fieldset>
-                </form> 
-            </center>
-        </section>
-    </section>
-</section>
-
+                                </div>   
+                            </form> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                           

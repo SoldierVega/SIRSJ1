@@ -19,6 +19,7 @@ class tiempomuerto extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model(array('tiempo_muerto_model', 'calidad_model', 'produccion_model'));        
     }
     

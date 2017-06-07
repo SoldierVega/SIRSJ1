@@ -8,11 +8,21 @@
                 ?>
                 
             </h3>
+      
+           
+            
+           
             <div class="form-group-lg" style="width: 100%" >
                 <div style="width: 40%; float: left;">
                     <?php
-                echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/calidad/insert' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";  
+                    if($this->session->userdata('perfil') == FALSE || 
+                        $this->session->userdata('perfil') != 'Administrador' 
+                        and $this->session->userdata('perfil') != 'Capturista'){
+                
+                        }else{
+                            echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/calidad/insert' "
+                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";
+                        }
                 
             ?>
                 </div>
@@ -39,7 +49,7 @@
                                                     <td> &nbsp;</td>
                                             </tr>
                                             <tr>
-                                                <td><input type="date" class="form-control" id="txtFecha" name="fecha" required="TRUE"></td>
+                                                <td><input type="date" class="form-control" id="txtFecha" name="fecha" required="TRUE" placeholder="YYYY/MM/DD"></td>
                                                 <td> &nbsp;</td>
                                                 <td> &nbsp;</td>
                                                 <td> &nbsp;</td>

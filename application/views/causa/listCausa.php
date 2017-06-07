@@ -5,7 +5,7 @@
             <div class="form-group" style="width: 100%" >
                 <div style="width: 40%; float: left;">
                     <?php
-                        echo "<code><a data-toggle='modal' data-target='#modalAgrega'  class='btn btn-primary btn btn-large' href='$base/disenio/insert/'> <span class='glyphicon-plus'></span> Nuevo</a></code>";          
+                        echo "<code><a class='btn btn-primary btn btn-large' href='$base/disenio/insert/'> <span class='glyphicon-plus'></span> Nuevo</a></code>";          
                     ?>
                 </div>
                 <div style="width: 25%; float: right;">
@@ -96,7 +96,7 @@
                                         echo "<a class = 'fa fa-trash-o fa-lg' href='$base/causa/delete/" . $obj->getIdCausa() . "'></a>";
 
                                         echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/causa/quer/" .$obj->getIdCausa() . "'></a>";
+                                        echo "<a class = 'fa fa-pencil fa-fw' href='$base/causa/update/" .$obj->getIdCausa() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';
@@ -112,14 +112,3 @@
         </div>
     </div>
 </div>
-<section id="modalAgrega" class="modal fade" role="dialog">
-            <?php
-            include_once (dirname(__FILE__) . '/../causa/addCausa.php');
-            ?>
-        </section>
-
-        <section id="modalActualizar" class="modal fade" role="dialog">
-            <?php
-            include_once (dirname(__FILE__) . '/../causa/editCausa.php');
-            ?>
-        </section>

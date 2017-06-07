@@ -24,20 +24,40 @@ class produccion_model extends CI_Model implements IModelAbastract {
             $this->db->query($Delete);
         } 
     }
+    
     public function insert($produccion) {
         if ($produccion instanceof ProduccionPojo){
-            $sp = "CALL sp_insert_produccion (?,?,?,?,?,?);";
+            $sp = "CALL sp_insert_produccion (?,?,?,?,?);";
            $result= $this->db->query($sp, array(
                 "idCalidad" => $produccion->getIdCalidad(),
                 "idFormato" => $produccion->getIdFormato(),
                 "cajasPrimera" => $produccion->getCajasPrimera(),
                 "cajasSegunda" => $produccion->getCajasSegunda(),
                 "pzaScrap" => $produccion->getPzaScrap(),
-                "cajasEmpacadas" => $produccion->getCajasEmpacadas(),
+              
             ));            
         }   
         $result->free_result();
     }
+    
+    // Metodo para Insertar un nuevo registro en la Base de Datos 
+    public function inser($calidad) {
+        if ($calidad instanceof CalidadPojo){
+            $datos =array(
+                "fecha" => $calidad->getFecha(),
+                "turno" => $calidad->getTurno(),
+                "idTripulacion" => $calidad->getIdTripulacion(),
+                "idLinea" => $calidad->getIdLinea(),
+                "idEsmaltador" => $calidad->getIdEsmaltador(),
+                "idDisenio" => $calidad->getIdDisenio(),
+                "idFormato" => $calidad->getIdFormato()
+
+            );
+            $insert = $this->db->insert_string("calidad", $datos);
+            $this->db->query($insert);
+        }
+    }
+    
     public function query($idProduccion = ''){
         $qry = null;
         if (empty($idProduccion)){
@@ -54,7 +74,18 @@ class produccion_model extends CI_Model implements IModelAbastract {
                         INNER JOIN disenio AS D ON C.idDisenio = D.idDisenio 
                         INNER JOIN formato AS F ON C.idFormato = F.idFormato");
         } else {
-            $qry = $this->db->query('SELECT * FROM produccion WHERE idProduccion =' . $idProduccion);
+            $qry = $this->db->query('SELECT C.idCalidad, C.fecha, C.turno, T.tripulacion AS idTripulacion,
+                L.linea AS idLinea, E.esmaltador AS idEsmaltador, 
+                D.nomDisenio AS idDisenio, F.formato AS idFormato,
+                DE. idProduccion, DE.cajasPrimera, DE.cajasSegunda, 
+                DE.pzaScrap, DE.cajasEmpacadas, DE.mPrimera, DE.mEmpacado, DE.mScrap 
+                    FROM calidad AS C
+                        INNER JOIN produccion AS DE ON C.idCalidad = DE.idCalidad
+                        INNER JOIN tripulacion AS T ON C.idTripulacion = T.idTripulacion 
+                        INNER JOIN linea AS L ON C.idLinea = L.idLinea 
+                        INNER JOIN esmaltador AS E ON C.idEsmaltador = E.idEsmaltador
+                        INNER JOIN disenio AS D ON C.idDisenio = D.idDisenio 
+                        INNER JOIN formato AS F ON C.idFormato = F.idFormato WHERE DE.idProduccion =' . $idProduccion);
         }
         $data = array();
         foreach ($qry->result() as $key => $reg){
@@ -85,10 +116,43 @@ class produccion_model extends CI_Model implements IModelAbastract {
         return $data;
     }
     
-    public function Buscar($calidad){
-        if ($calidad instanceof CalidadPojo){
+    public function controlista($calidad){
+        if ($calidad instanceof ProcalPojo){
             $qry = null;
-            $qry = $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, 
+            $qry = $this->db->query("SELECT D.nomDisenio as disenio, sum(P.cajasPrimera) as primera, sum(P.cajasSegunda) as segunda,
+		sum(P.pzaScrap) as scrapt, sum(P.mEmpacado) as metosEmpacados, sum(P.mScrap) as metosScrapt 
+                FROM produccion as P 
+                INNER JOIN calidad as C ON P.idCalidad = C.idCalidad 
+                INNER JOIN disenio as D ON C.idDisenio = D.idDisenio   
+                WHERE C.fecha = 
+                '".$calidad->getTxtFecha()."'GROUP BY Disenio ");
+            
+            $data = array();
+            foreach ($qry->result() as $key => $reg){
+                $crear = new factory();
+                $produccion = $crear->create('procal');
+                
+                $calidad = new ProcalPojo();
+                $calidad->setIdProduccion($reg->disenio);
+                $calidad->setIdCalidad($reg->primera);
+                $calidad->setFecha($reg->segunda);
+                $calidad->setTurno($reg->scrapt);
+                $calidad->setIdTripulacion($reg->metrosEmpacados);
+                $calidad->setIdLinea($reg->metrosScrapt);
+                
+                
+                array_push($data, $calidad); 
+            }
+            return $data;
+        }
+        
+    }
+
+
+    public function Buscar($calidad){
+        if ($calidad instanceof ProcalPojo){
+            $qry = null;
+            $qry = $this->db->query("SELECT PR.idProduccion, C.idCalidad, C.fecha, C.turno, 
                 T.tripulacion AS idTripulacion, T.nomFacilitador, 
                 T.nomAnalista, L.linea AS idLinea, E.esmaltador AS idEsmaltador,
                 D.nomDisenio AS idDisenio, F.formato AS idFormato, 
@@ -98,16 +162,17 @@ class produccion_model extends CI_Model implements IModelAbastract {
                 INNER JOIN esmaltador AS E ON C.idEsmaltador = E.idEsmaltador 
                 INNER JOIN disenio AS D ON C.idDisenio = D.idDisenio
                 INNER JOIN formato AS F ON C.idFormato = F.idFormato 
-                LEFT JOIN produccion AS PR ON C.idCalidad = PR.idCalidad   
+                LEFT JOIN produccion AS PR ON C.idCalidad = PR.idCalidad  
                 WHERE fecha = 
                 '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()." ORDER BY idLinea");
             
             $data = array();
             foreach ($qry->result() as $key => $reg){
                 $crear = new factory();
-                $produccion = $crear->create('calidad');
+                $produccion = $crear->create('procal');
                 
-                $calidad = new CalidadPojo();
+                $calidad = new ProcalPojo();
+                $calidad->setIdProduccion($reg->idProduccion);
                 $calidad->setIdCalidad($reg->idCalidad);
                 $calidad->setFecha($reg->fecha);
                 $calidad->setTurno($reg->turno);
@@ -123,29 +188,36 @@ class produccion_model extends CI_Model implements IModelAbastract {
             return $data;
         }
     }
+    
     public function update($produccion) {
         if ($produccion instanceof ProduccionPojo){
-            $datos = array(
-                "idProduccion" => $produccion->getIdProduccion(),
+           $sp = "CALL sp_update_produccion (?,?,?,?,?);";
+           $result= $this->db->query($sp, array(
+                "produccion" => $produccion->getIdProduccion(),
+                "calidad" => $produccion->getIdCalidad(),
+               
                 "cajasPrimera" => $produccion->getCajasPrimera(),
                 "cajasSegunda" => $produccion->getCajasSegunda(),
-                "pzaScrap" => $produccion->getPzasScrap(),
-                "cajasEmpacadas" => $produccion->getCajasEmpacadas(),
-            );
-            $this->db->where('idProduccion', $produccion->getIdProduccion());
-            $this->db->update('produccion', $datos);
-        }  
+                "pzaScrap" => $produccion->getPzaScrap(),
+              
+            ));            
+        }   
+        $result->free_result();
     }
     
     
     
-    public function que($calidad) {
-        $this->db->query("SELECT C.idCalidad, C.fecha, C.turno, C.idFormato, 
-                         E.idEquivalencia, E.mCajas, E.pzasCaja, E.idCuerpo, E.idFormato
-                            FROM calidad AS C INNER JOIN equivalencia AS E 
-                            ON E.idFormato = C.idFormato WHERE C.idFormato = '
-                            ".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()."");
+    public function que($idProduccion) {
+        $this->db->where('idProduccion', $idProduccion);
+        $datos = $this->db->get('produccion');
+        return $datos->row();
+    }
+    
+    
+    public function quer($idCalidad) {
+        $this->db->where('idCalidad', $idCalidad);
         $datos = $this->db->get('calidad');
         return $datos->row();
     }
+    
 }

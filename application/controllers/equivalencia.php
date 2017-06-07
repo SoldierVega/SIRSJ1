@@ -19,7 +19,8 @@ class equivalencia extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
-        $this->load->model('equivalencia_model');        
+        $this->load->library(array('session'));
+        $this->load->model(array('equivalencia_model', 'metod_model'));        
     }
     
     function index () {
@@ -57,10 +58,10 @@ class equivalencia extends CI_Controller{
             $data['cuerpo'] = $this->equivalencia_model->getCuerpo();
             $data['formato'] = $this->equivalencia_model->getFormato();
             
-//            $this->load->view('/templates/header',$data);
+            $this->load->view('/templates/header',$data);
             $data['title_page'] = 'Agrega Equivalencia';
             $this->load->view('equivalencia/addEquivalencia.php',$data);
-//            $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
@@ -93,10 +94,10 @@ class equivalencia extends CI_Controller{
             $data['cuerpo'] = $this->equivalencia_model->getCuerpo();
             $data['formato'] = $this->equivalencia_model->getFormato();
             
-//            $this->load->view('/templates/header',$data);
+            $this->load->view('/templates/header',$data);
             $data['title_page'] = 'Actualiza Diseño';
             $this->load->view('equivalencia/editEquivalencia.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }
@@ -128,3 +129,4 @@ class equivalencia extends CI_Controller{
         }
     }
 }
+    

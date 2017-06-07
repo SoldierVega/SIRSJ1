@@ -70,7 +70,6 @@ class calidad_model extends CI_Model implements IModelAbastract {
                 esmaltador AS E ON C.idEsmaltador = E.idEsmaltador INNER JOIN
                 disenio AS D ON C.idDisenio = D.idDisenio INNER JOIN 
                 formato AS F ON C.idFormato = F.idFormato 
-       
                 WHERE fecha = '".$calidad->getTxtFecha()."' and turno = ".$calidad->getTxtTurno()." ORDER BY idLinea");
             
             $data = array();
@@ -149,63 +148,6 @@ class calidad_model extends CI_Model implements IModelAbastract {
             );
             $this->db->where('idCalidad', $calidad->getIdCalidad());
             $this->db->update('calidad', $datos);
-        }
-    }
-    
-    // Funciones para traer los valores y no los ID´s de las llaves foraneas
-    public function getTripulacion(){
-        $this->db->order_by('tripulacion');
-        $tripulacion = $this->db->query('SELECT idTripulacion, tripulacion AS Tripulacion FROM tripulacion');
-        if ($tripulacion->num_rows() > 0){
-            return $tripulacion->result();
-        }
-    }
-    
-    public function getLinea(){
-        $this->db->order_by('linea');
-        $linea = $this->db->query('SELECT idLinea, linea AS Linea FROM linea');
-        if ($linea->num_rows() > 0){
-            return $linea->result();
-        }
-    }
-    
-    public function getEsmaltador(){
-        $this->db->order_by('esmaltador');
-        $esmaltador = $this->db->query('SELECT idEsmaltador, esmaltador AS Esmaltador FROM esmaltador');
-        if ($esmaltador->num_rows() > 0){
-            return $esmaltador->result();
-        }
-    }
-    
-    public function getDisenio(){
-        $this->db->order_by('nomDisenio');
-        $disenio = $this->db->query('SELECT idDisenio, nomDisenio AS Disenio FROM disenio');
-        if ($disenio->num_rows() > 0){
-            return $disenio->result();
-        }
-    }
-    
-    public function getFormato(){
-        $this->db->order_by('formato');
-        $formato = $this->db->query('SELECT idFormato, formato AS Formato FROM formato');
-        if ($formato->num_rows() > 0){
-            return $formato->result();
-        }
-    }
-    
-    public function getCausa(){
-        $this->db->order_by('tipoCausa');
-        $causa = $this->db->query('SELECT idCausa, tipoCausa AS Causa FROM causa');
-        if ($causa->num_rows() > 0){
-            return $causa->result();
-        }
-    }
-    
-    public function getTipo(){
-        $this->db->order_by('tipo');
-        $tipo = $this->db->query('SELECT idTipo, tipo AS Tipo FROM tipo');
-        if ($tipo->num_rows() > 0){
-            return $tipo->result();
         }
     }
 }

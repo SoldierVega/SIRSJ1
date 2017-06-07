@@ -1,7 +1,22 @@
+<?php
+        $hora= strftime('%H:%M', strtotime('-7 hours'));
+        $horas=('07:00');
+        $horass=('23:00');
+
+            if($hora >= $horas and $hora <= $horass){
+                $fecha=date('Y/m/d');
+                } else {
+                    $fecha=date('Y/m/d',strtotime('-1 day'));
+            }      
+    ?>
 <div id="page-wrapper"><br>
+    
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+                <div class=" panel-heading">
+                
+                    
                 <div class="panel-heading">
                     <center><h3 class="page-header">Producción </h3>
 
@@ -22,8 +37,11 @@
                                                 <td><label for="turno">Turno </label></td>
                                         </tr>
                                         <tr>
-                                        
-                                            <td><input type="date" class="form-control" id="txtFecha" name="fecha"></td>
+                                            <div id="fecha" class="input-append date">
+                                                <td>
+                                                    <input   class="add-on form-control" name="fecha" placeholder="YYYY/MM/DD" required="TRUE" value="<?PHP echo $fecha;?>">
+                                                </td>
+                                            </div>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
                                             <td> &nbsp;</td>
@@ -72,6 +90,7 @@
            
         </div>
     </div> <!--    finalizamos -->
+    </div>
 </div>
     
        

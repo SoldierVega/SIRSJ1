@@ -18,6 +18,7 @@ class DetalleCalidadPojo {
     private $idTipo;
     private $idCausa;
     private $numPiezas;
+    private $txtDetalle;
     
     function __construct() {
         
@@ -43,6 +44,10 @@ class DetalleCalidadPojo {
         return $this->numPiezas;
     }
 
+    function getTxtDetalle() {
+        return $this->txtDetalle;
+    }
+
     function setIdDetalle($idDetalle) {
         $this->idDetalle = $idDetalle;
     }
@@ -61,5 +66,9 @@ class DetalleCalidadPojo {
 
     function setNumPiezas($numPiezas) {
         $this->numPiezas = $numPiezas;
-    }  
+    }
+
+    function setTxtDetalle($txtDetalle) {
+        $this->txtDetalle = $txtDetalle;
+    }
 }

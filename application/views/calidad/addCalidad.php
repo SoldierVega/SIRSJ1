@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
     $(document).ready(function (){
         $("#tripulacion").change(function (){
@@ -54,6 +55,21 @@
         });
     });
 </script>
+ 
+<script src="<?php echo base_url() . 'media/js/validacion.js' ?>" type="text/javascript"></script>
+<script src="<?php echo base_url() . 'media/datepicker/jquery.ui.datepicker-es.js' ?>" type="text/javascript"></script>
+
+<?php
+        $hora= strftime('%H:%M', strtotime('-7 hours'));
+        $horas=('07:00');
+        $horass=('23:00');
+
+            if($hora >= $horas and $hora <= $horass){
+                $fecha=date('Y-m-d');
+                } else {
+                    $fecha=date('Y-m-d',strtotime('-1 day'));
+            }      
+    ?>
 <section>
     <section class="modal-dialog" >
         <section class="modal-content">
@@ -69,14 +85,17 @@
             <center>
                 
                 <form style="width: 80%;" method="POST" action="<?php echo site_url('/calidad/insert/') ?>">
-                    <div> 
-                            <div class="input-group">
-                                    <label for="fecha">Fecha</label>
-                                    <input type="date"  class="form-control" name="fecha" placeholder="DD/MM/YYYY" required="TRUE">
+                    <div data-validate="length">
+                    <div > 
+                            <div class="input-group" col-sm-10 data-validate="length" data-length="1">
+                                   
+                                    <input id="fecha" type="date"  class="form-control" name="fecha" placeholder="YYYY/MM/DD"  required="TRUE" value="<?php echo $fecha;?>">
+                                    <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                             </div><br>
 
-                            <div class="input-group" 
-                                <label for="turno">Turno</label> <br>
+                            <div class="input-group">
+                                 <b><label for="turno">* Turno</label></b> <br>
                                 <label class="radio-inline">
                                     <input type="radio" name="turno" id="turno" value="1"> 1
                                 </label>
@@ -86,21 +105,23 @@
                                 <label class="radio-inline">
                                     <input type="radio" name="turno" required="TRUE"id="turno" value="3"> 3
                                 </label>
+                                 
                             </div><br>
-                            <div class="form-group">
-                                <div  data-validate="">
+                            <div class="form-group" >
+                                <div>
                                     <table>
                                         <tr>
-                                            <td><label for="idTripulacion">Tripulación</label></td>
+                                            <td><label for="idTripulacion">* Tripulación</label></td>
                                             <td> &nbsp;</td>
                                             <td> <label for="">Facilitador </label></td>
                                             <td> &nbsp;</td>
                                             <td> <label for="">Analista </label></td>
                                         </tr>
                                         <tr>
-                                            <td>
-                                                <select  name="idTripulacion"  class="form-control" required>
-                                                    <option value="0">Selecciona</option>
+                                            <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1">
+                                                <select  name="idTripulacion"  class="form-control" required aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                    <option value="">Selecciona</option>
                                                         <?php
                                                             foreach ($tripulacion as $filaas) {
                                                         ?>
@@ -109,6 +130,8 @@
                                                             }
                                                         ?>
                                                 </select>
+                                                <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                             </td>
                                             <td> &nbsp;</td>
                                             <td>
@@ -123,21 +146,23 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <table>
+                            <div>
+                                <div>
+                                    <table>
+                                        <tr>
+                                            <td><label for="idLinea">* Linea </label></td>
+                                            <td> &nbsp;</td>
+                                            <td><label for="idEsmaltador">* Esmaltador </label></td>
+                                            <td> &nbsp;</td>
+                                            <td><label for="idEsmaltador">* Diseño </label></td>
+                                            <td> &nbsp;</td>
+                                            <td><label for="idEsmaltador">* Formato </label></td>
+                                        </tr>
                                     <tr>
-                                        <td><label for="idLinea">Linea </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Esmaltador </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Diseño </label></td>
-                                        <td> &nbsp;</td>
-                                        <td><label for="idEsmaltador">Formato </label></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select name="idLinea" id="linea"class="form-control"required="TRUE">
-                                                    <option value="0">Selecciona</option>
+                                        <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1">
+                                            <select name="idLinea" id="linea" class="form-control" required aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                    <option value="">Selecciona</option>
                                                         <?php
                                                             foreach ($linea as $filaas) {
                                                         ?>
@@ -146,11 +171,14 @@
                                                             }
                                                         ?>
                                                 </select>
+                                                    <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                         </td>
                                         <td>&nbsp;</td>
-                                        <td>
-                                            <select name="idEsmaltador" id="esmaltador"class="form-control"required aria-required="true" placeholder="">
-                                                    <option value="0">Selecciona</option>
+                                        <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1">
+                                            <select name="idEsmaltador" id="esmaltador"class="form-control"rrequired aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                    <option value="">Selecciona</option>
                                                         <?php
                                                             foreach ($esmaltador as $filaas) {
                                                         ?>
@@ -159,11 +187,14 @@
                                                             }
                                                         ?>
                                                 </select>
+                                             <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                         </td>
                                         <td>&nbsp;</td>
-                                        <td>
-                                            <select name="idDisenio" id="disenio"class="form-control"required aria-required="true" placeholder="">
-                                                    <option value="0">Selecciona</option>
+                                        <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1">
+                                            <select name="idDisenio" id="disenio"class="form-control" required aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                    <option value="">Selecciona</option>
                                                         <?php
                                                             foreach ($disenio as $filaas) {
                                                         ?>
@@ -172,11 +203,14 @@
                                                             }
                                                         ?>
                                             </select>
+                                             <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                         </td>
                                         <td>&nbsp;</td>
-                                        <td>
-                                           <select name="idFormato" id="formato"class="form-control"required aria-required="true" placeholder="">
-                                                <option value="0">Selecciona</option>
+                                        <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1">
+                                           <select name="idFormato" id="formato"class="form-control" required aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                <option value="">Selecciona</option>
                                                     <?php
                                                         foreach ($formato as $filaas) {
                                                     ?>
@@ -185,14 +219,24 @@
                                                         }
                                                     ?>
                                             </select> 
+                                             <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                         </td>
                                         
                                     </tr>
                                 </table>
                             </div>
-
+                            
+                    </div>
+                    </div>
+                        <br>
+                        <br>
+                        
                            <div class="form-group">
                                 <button type="submit" class="btn btn-info btn btn-lg">Guardar</button>
+                                <div align="left">
+                                    <font align="right" color="red" size=0> <i>(Los Campos Marcados con * son Obligatorios)</i></font>
+                                </div>
                         </div> 
                     </div>
                 </form>

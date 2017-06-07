@@ -20,6 +20,7 @@ class esmaltador extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('esmaltador_model');        
     }
     
@@ -44,10 +45,10 @@ class esmaltador extends CI_Controller{
         $esmaltador = new EsmaltadorPojo();
         $esmaltador->setEsmaltador($this->input->post('esmaltador', TRUE));
         if (empty($esmaltador->getEsmaltador())){
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Agrega Esmaltador';
             $this->load->view('esmaltador/addEsmaltador.php',$data);
-//            $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
@@ -68,10 +69,10 @@ class esmaltador extends CI_Controller{
         }
         $esmaltador->setEsmaltador($this->input->post('esmaltador', TRUE));
         if (empty($esmaltador->getEsmaltador())){           
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Actualiza Esmaltador';
             $this->load->view('esmaltador/editEsmaltador.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }

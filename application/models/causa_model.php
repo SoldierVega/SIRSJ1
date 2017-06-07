@@ -39,16 +39,10 @@ class causa_model extends CI_Model implements IModelAbastract{
             $this->db->query($insert);
         }
     }
-    public function que($idCausa) {
-        $this->db->where('idCausa', $idCausa);
-        $datos = $this->db->get('causa');
-        return $datos->row();
-    }
-    
     public function query($idCausa = ''){
         $qry = null;
         if (empty($idCausa)){
-            $qry = $this->db->query("SELECT C.idCausa, C.tipoCausa FROM causa AS C LIMIT 5");
+            $qry = $this->db->query('SELECT * FROM causa ORDER BY tipoCausa LIMIT 5 ');
         }else {
             $qry = $this->db->query('SELECT * FROM causa WHERE idCausa = '. $idCausa);
         }
@@ -65,8 +59,7 @@ class causa_model extends CI_Model implements IModelAbastract{
         }
         return $data;
     }
-
-   public function Buscar($causa){
+    public function Buscar($causa){
        if ($causa instanceof CausaPojo){
            $qry = null;
            $qry= $this->db->query("SELECT C.idCausa, C.tipoCausa "
@@ -106,7 +99,6 @@ class causa_model extends CI_Model implements IModelAbastract{
         }
    }
 
-   
     public function update($causa) {
         if ($causa instanceof CausaPojo){
             $datos = array(
@@ -114,7 +106,7 @@ class causa_model extends CI_Model implements IModelAbastract{
                 "tipoCausa" => $causa->getTipoCausa()
             );
             $this->db->where('idCausa', $causa->getIdCausa());
-            $this->db->update('tipoCausa', $datos);
+            $this->db->update('causa', $datos);
         }   
     }
 }

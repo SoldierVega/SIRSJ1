@@ -30,12 +30,6 @@ class formato_model extends CI_Model implements IModelAbastract {
             $this->db->query($Delete);
         }
     }
-    
-    public function que($idFormato) {
-        $this->db->where('idFormato', $idFormato);
-        $datos = $this->db->get('formato');
-        return $datos->row();
-    }
 
     public function insert($formato) {
         if ($formato instanceof FormatoPojo){

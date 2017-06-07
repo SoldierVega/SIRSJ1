@@ -1,23 +1,5 @@
-
-<div class="form-group-lg" style="width: 100%" >
-           <div style="width: 40%; float: left;">
-               <?php
-                echo "<a  data-toggle='modal' data-target='#modalAgrega' href= '$base/produccion/inser' "
-                        . "class='btn btn-primary'><i class='glyphicon glyphicon-plus'></i> Agregar Calidad</a>";  
-                
-            ?>
-           </div>
-               
-           <div style="width: 5%; float: right;">
-                <?php
-                    echo "<a class='btn btn-primary' href= '$base/produccion/ver'><i class='glyphicon glyphicon-eye-open' "
-                . "onclick='alert('Hello world!')'></i> Ver</a>";    
-                ?>
-            </div>
-           
-        </div>
 <br>
-<br>
+<div class="row">
     <div class="panel-default">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -26,9 +8,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
+                        
                         <div class="table-responsive">
                             <?php
-
                                 echo '<table class ="table table-bordered>"';
 
                                     echo '<TR><TD>';
@@ -95,11 +77,11 @@
                                         
                                      
 
-                                        echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalEliminar' class = 'fa fa-trash-o fa-lg' href='$base/produccion/que/" . $obj->getIdCalidad() . "'></a>";
+//                                        echo '</TD><TD>';
+//                                        echo "<a data-toggle='modal' data-target='#modalEliminar' class = 'fa fa-trash-o fa-lg' href='$base/produccion/que/" . $obj->getIdCalidad() . "'></a>";
 
                                         echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/calidad/quer/" .$obj->getIdCalidad() . "'></a>";
+                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/produccion/quer/" .$obj->getIdProduccion() . "'></a>";
                                        
                                         
                                         echo '</TD><TD>';
@@ -120,6 +102,7 @@
         </div>
     </div>
 </div>
+</div>
 
 <section id="modalAgrega" class="modal fade" role="dialog">
     <?php
@@ -129,7 +112,7 @@
 
 <section id="modalActualizar" class="modal fade" role="dialog">
     <?php
-        include_once (dirname(__FILE__) . '/editCalidad.php');
+        include_once (dirname(__FILE__) . '/editProduccion.php');
     ?>
 </section>
 <section id="modalDetalle" class="modal fade" role="dialog">

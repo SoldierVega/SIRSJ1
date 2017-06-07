@@ -23,13 +23,26 @@
     });
 </script>
 
+
+
+
+
+
+
+ <script src="<?php echo base_url() . 'media/js/validacion.js' ?>" type="text/javascript"></script>
+
 <section>
     <section class="modal-dialog" >
         <section class="modal-content">
             <section class="modal-header">
                 <form style="width: 100%;" method="POST" action="<?php echo site_url('/calidad/consultar/') ?>">
+                    <div style="width: 7%; float: left;">
+                       
+                    </div>
                     <div style="width: 7%; float: right;">
-                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove"></button>   
+                        <button type="submit" class="btn btn-default glyphicon glyphicon-remove"></button>
+                        
+                        
                     </div><br>
                     <div class="hidden" >
                         <table >
@@ -45,7 +58,7 @@
                         <br>
                     </div><br> 
                 </form>
-                <center><h1>Agregar Detalle</h1></center>
+                <center><h1 >Agregar Detalle</h1> </center>
             </section>
             <center>
                 
@@ -59,20 +72,27 @@
                                 <label for="text">Turno</label>
                                 <input   type="number"  name="txtTurno" value="<?php echo $da->turno; ?>">
                         </div><br>
-
-                        <div class="form-group">
+                        
+                    
+                    </div>
+                        <div class="form-group"  data-validate="length">
                             <div  data-validate="">
-                                <table>
+                                
+                                <table >
                                     <tr>
-                                        <td><label for="idTipo">Tipo</label></td>
+                                        <td><label for="idTipo">* Tipo</label></td>
                                         <td> &nbsp;</td>
-                                        <td> <label for="idCausa">Causa </label></td>
+                                        <td> <label for="idCausa">* Causa </label></td>
                                         <td> &nbsp;</td>
-                                        <td> <label for="numPiezas">N° Piezas </label></td>
+                                        <td> <label for="numPiezas">* N° Piezas </label></td>
+                                        
+                                        
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <select name="idTipo" id="idTipo" class="form-control" required="TRUE" >
+                                    <tr style="width: 100%;">
+                                    
+                                        <td  class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1" >
+                                            <select name="idTipo" id="idTipo" class="form-control" required aria-required="true"
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
                                             <option value="">Selecciona</option>
                                                 <?php
                                                     foreach ($tipo as $filaas) {
@@ -82,11 +102,15 @@
                                                     }
                                                 ?>
                                         </select>
+                                            <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"></span></span>
                                         </td>
+                                    
                                         <td> &nbsp;</td>
-                                        <td>
-                                            <select name="idCausa" id="causa"class="form-control"required aria-required="true">
-                                                <option value="0">Selecciona</option>
+                                        <td class="input-group  has-feedback tooltip-demo" col-sm-10 data-validate="length" data-length="1" >
+                                            <select name="idCausa" id="causa"class="form-control" required aria-required="true" 
+                                                    data-toggle="tooltip" data-placement="bottom" title="Selecciona un Elemento de la Lista">
+                                                <option  value="">Selecciona</option>
                                                     <?php
                                                         foreach ($causa as $filaas) {
                                                     ?>
@@ -95,17 +119,34 @@
                                                         }
                                                     ?>
                                             </select>
+                                            <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove "></span></span>
                                         </td>
                                         <td> &nbsp;</td>
-                                        <td>
-                                            <input type="number" class="form-control" name="numPiezas" placeholder="120" required="TRUE">
-                                        </td>
+                                            <td class="input-group  has-feedback tooltip-demo" data-validate="number" col-sm-10 data-validate="length" data-length="1">
+                                                <input  type="text"class="form-control"
+                                                       name="numPiezas" placeholder="120" required ari="TRUE"
+                                                      data-toggle="tooltip" data-placement="bottom" title="Ingresar Piezas" >
+                                                <span class="input-group-addon hidden">
+                                                    <span class="glyphicon glyphicon-remove"> </span></span>
+                                            </td>
                                     </tr>
+                                    
+                                    
+                                    
                                 </table>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button data-toggle='modal' data-target='#modalDetalle' type="submit" class="btn btn-info btn btn-lg">Guardar</button>
+                    <div class="form-group">  
+                        
+                        <div class="form-group tooltip-demo">
+                            <p> <button data-toggle='modal' data-target='#modalDetalle' type="submit" class="btn btn-success glyphicon glyphicon-ok"></button> </p>
+                            
+                                <div align="left">
+                                    <font align="right" color="red" size=0> <i>(Los Campos Marcados con * son Obligatorios)</i></font>
+                                </div>
+                           
+                            
                         </div> 
                     </div>
                 </form>
@@ -114,7 +155,16 @@
     </section>
 </section>
 
-
+<script>
+    // tooltip demo
+    $('.tooltip-demo').tooltip({
+        selector: "[data-toggle=tooltip]",
+        container: "body"
+    })
+    // popover demo
+    $("[data-toggle=popover]")
+        .popover()
+    </script>
 <section id="modalDeAgre" class="modal fade" role="dialog">
     <?php
         include_once (dirname(__FILE__) . '/dialog/agregar.php');

@@ -6,10 +6,8 @@
 
 //Imports
 require_once ("application/libraries/PHPExcel/Classes/PHPExcel.php");
-//require_once ("application/models/excel_model.php");
-//require_once ("application/models/pojo/reporteDiarioPojo.php");
 require_once ("ExcelClass.php");
-//Incrementar memoría y tiempo de espera
+//Incrementar memorÃ­a y tiempo de espera
 ini_set('memory_limit', '2048M');
 ini_set('max_execution_time', 0);
     
@@ -22,17 +20,17 @@ class Excel extends CI_Controller{
     public function _construct(){
         parent::__construct();
         
-        //Se inicializa la librería
+        //Se inicializa la librerÃ­a
         $this->load->library('PHPExcel/Classes/PHPExcel.php');
-        //$this->load->model(array('excel_model'));        
+        $this->load->model(array('excel_model'));        
     }
 
     /**
-    * Función para generar el reporte diario en excel
+    * FunciÃ³n para generar el reporte diario en excel
     */
 
    public function setExcel(){
-       
+        $fechaReporte=$_POST["txtFecha"];
         //Se crea objeto para el Excel
         $excel=new PHPExcel();
         //Obtener la hoja de trabajo
@@ -43,7 +41,8 @@ class Excel extends CI_Controller{
         //Obtener fecha del reporte
         $fecha_reporte= date("d/m/Y");
         //Asignar fecha del reporte a una celda
-        $hojaTrabajo->setCellValue("A".$renglon,"FECHA: ".$fecha_reporte);
+        $hojaTrabajo->setCellValue("A".$renglon,"FECHA: ".$fechaReporte);
+        $hojaTrabajo->setCellValue("L".$renglon,"FECHA CREACIÓN : ".$fecha_reporte);
         //Iniciar encabezado en linea 3
         $renglon=3;
         //Asignar encabezados a los reportes
@@ -75,33 +74,96 @@ class Excel extends CI_Controller{
                                 ->getColor()->setRGB('FDFEFE');
         //Agregar autofiltrado
         $hojaTrabajo->setAutoFilter('A3:N3');
-        //Recuperar variables parámetros
-        $fechaInicio="";
-        $turnos=  ExcelClass::turnos();
+        //Recuperar variables parÃ¡metros
+        $turnos=  ExcelClass::turnos($fechaReporte);
         $pzaFormatosArray=  ExcelClass::FormatoEquivalencia();
         //Recorrer los turnos existentes
+        $topCalidad=array();
+        $topPerdida=array();
+        $countTurno=0;
+        $sumTE=0;
+        $sumTC=0;
+        $sumTP=0;
+        $porTotalCalidad=0;
+        $porTotalPerdida=0;
+        $a_EmpaqueTotalTurno=array();
         foreach ($turnos as $key => $turno) {
+            $countTurno++;
             //Recuperar registros por turno
-            $registros=  ExcelClass::registros_reporte_diario($fechaInicio,$turno["turno"]);
+            $registros=  ExcelClass::registros_reporte_diario($fechaReporte, $turno["turno"]);
             //Inicializar variables a ocupar
             $sumEmpaque=0;
             $sumCalidad=0;
             $sumPerdida=0;
             $turno="";
+            $countRegistros=0;
+            
             //Recorrer los registros por turno
             foreach ($registros as $key => $value){
+                $countRegistros++;
+            
                 if($value["pzaScrap"]!=NULL && $value["pzaScrap"]!="" && $value["cajasEmpacadas"]!=NULL && $value["cajasEmpacadas"]!=""){
-                   $porPerdida=(($value["pzaScrap"]/$pzaFormatosArray[$value["idFormato"]])/$value["cajasEmpacadas"])*100; 
+                   $porPerdida=($value["pzaScrap"]/(($pzaFormatosArray[$value["idFormato"]]*$value["cajasEmpacadas"])+$value["pzaScrap"]))*100; 
                 }else{
                     $porPerdida="0";
                 }
+                
+                //Calcular porcentajes
+                //$por=(($value["empaque"]/$sumEmpaque)*$value["porC"]);
                 
                 //Incrementar variables
                 $sumEmpaque=$sumEmpaque+$value["empaque"];
                 $sumCalidad=$sumCalidad+$value["porC"];
                 $sumPerdida=$sumPerdida+$porPerdida;
                 
+                //Obtener Top 1 y 2 de calidad
+                $topCalidad=  ExcelClass::obtenerTopCalidad($value["Calidad"]);
+                if (empty($topCalidad)){
+                    $top1="";
+                    $top2="";
+                }  else {
+                    
+                    if(empty($topCalidad[1])){
+                        $top1="";
+                    }else{
+                        $top1=$topCalidad[1];
+                    }
+                    
+                    if(empty($topCalidad[2])){
+                        $top2="";
+                    }else{
+                        $top2=$topCalidad[2];
+                        
+                    }
+                    
+                }
+                
+                
+                //Obtener Top 1 y 2 de perdida 
+                $topPerdida= ExcelClass::obtenerTopPerdida($value["Calidad"]);
+               
+                if (empty($topPerdida)){
+                    $top1P="";
+                    $top2P="";
+                }else{
+                    
+                    if(empty($topPerdida[1])){
+                        $top1P="";
+                    }else{
+                        $top1P=$topPerdida[1];
+                    }
+                    
+                    if(empty($topPerdida[2])){
+//                        echo 'no tiene';
+                        $top2P="";
+                    }else{
+                        $top2P=$topPerdida[2];
+                        
+                    }
 
+                }
+                
+                
                 $renglon++;
                 $hojaTrabajo->setCellValue("A".$renglon,$value["cuerpo"]);
                 $hojaTrabajo->setCellValue("B".$renglon,$value["identificador"]);
@@ -110,10 +172,10 @@ class Excel extends CI_Controller{
                 $hojaTrabajo->setCellValue("E".$renglon,$value["esmaltador"]);
                 $hojaTrabajo->setCellValue("F".$renglon,$value["nomDisenio"]);
                 $hojaTrabajo->setCellValue("G".$renglon,$value["formato"]);
-                $hojaTrabajo->setCellValue("H".$renglon,$value["top1"]);
-                $hojaTrabajo->setCellValue("I".$renglon,$value["top2"]);
-                $hojaTrabajo->setCellValue("J".$renglon,$value["top1p"]);
-                $hojaTrabajo->setCellValue("K".$renglon,$value["top2p"]);
+                $hojaTrabajo->setCellValue("H".$renglon,$top1);
+                $hojaTrabajo->setCellValue("I".$renglon,$top2);
+                $hojaTrabajo->setCellValue("J".$renglon,$top1P);
+                $hojaTrabajo->setCellValue("K".$renglon,$top2P);
                 if($value["empaque"]==NULL){
                     $hojaTrabajo->setCellValue("L".$renglon,"0");
                 }  else {
@@ -129,8 +191,38 @@ class Excel extends CI_Controller{
                 }else{
                     $hojaTrabajo->setCellValue("N".$renglon,$porPerdida);
                 }
+                
                    
             }
+            
+            $sumTurnoCalidad=0;
+            foreach ($registros as $key => $reg) {
+                $por=(($reg["empaque"]/$sumEmpaque)*$reg["porC"]);
+                $sumTurnoCalidad=$sumTurnoCalidad+$por;
+                
+            }
+            
+            $sumTurnoPerdida=0;
+            foreach ($registros as $key => $reg) {
+                
+                if($reg["pzaScrap"]!=NULL && $reg["pzaScrap"]!="" && $reg["cajasEmpacadas"]!=NULL && $reg["cajasEmpacadas"]!=""){
+                   $porPerdida2=($reg["pzaScrap"]/(($pzaFormatosArray[$reg["idFormato"]]*$reg["cajasEmpacadas"])+$reg["pzaScrap"]))*100; 
+                }else{
+                    $porPerdida2="0";
+                }
+                
+                $porP=(($reg["empaque"]/$sumEmpaque)*$porPerdida2);
+                $sumTurnoPerdida=$sumTurnoPerdida+$porP;
+                
+            }
+            
+            $porCalidad=$sumCalidad/$countRegistros;
+            $porPerdidas=$sumPerdida/$countRegistros;
+            
+            $sumTE=$sumTE+$sumEmpaque;
+            $sumTC=$sumTC+$porCalidad;
+            $sumTP=$sumTP+$porPerdidas;
+            $a_EmpaqueTotalTurno[]=$sumEmpaque."|".$sumTurnoCalidad."|".$sumTurnoPerdida;
             
             $renglon++;
             $hojaTrabajo->setCellValue("A".$renglon,"");
@@ -143,13 +235,48 @@ class Excel extends CI_Controller{
             $hojaTrabajo->setCellValue("H".$renglon,"");
             $hojaTrabajo->setCellValue("I".$renglon,"");
             $hojaTrabajo->setCellValue("J".$renglon,"");
-            $hojaTrabajo->setCellValue("K".$renglon,"TOTAL");
+            $hojaTrabajo->setCellValue("K".$renglon,"TOTAL ".$countTurno);
             $hojaTrabajo->setCellValue("L".$renglon,$sumEmpaque);
-            $hojaTrabajo->setCellValue("M".$renglon,$sumCalidad);
-            $hojaTrabajo->setCellValue("N".$renglon,$sumPerdida);
+            $hojaTrabajo->setCellValue("M".$renglon,$sumTurnoCalidad);
+            $hojaTrabajo->setCellValue("N".$renglon,$sumTurnoPerdida);
             
         }
         
+        $sumTET=$sumTE;
+        $sumTCT=$sumTC/$countTurno;
+        $sumTPT=$sumTP/$countTurno;
+        $sumPorTotalCalidad=0;
+        $sumPorTotalPerdida=0;
+        foreach ($a_EmpaqueTotalTurno as $key => $datosTurno) {
+           
+            $explodeDatos= explode("|", $datosTurno);
+            //Calculo de porcentaje total general de Calidad
+            $porTotalCalidad=(($explodeDatos[0]/$sumTET)*$explodeDatos[1]);
+            $sumPorTotalCalidad=$sumPorTotalCalidad+$porTotalCalidad;
+            //Calculo de porcentaje total general de Pérdida
+            $porTotalPerdida=(($explodeDatos[0]/$sumTET)*$explodeDatos[2]);
+            $sumPorTotalPerdida=$sumPorTotalPerdida+$porTotalPerdida;
+            
+        }
+       
+        $renglon++;
+            $hojaTrabajo->setCellValue("A".$renglon,"");
+            $hojaTrabajo->setCellValue("B".$renglon,"");
+            $hojaTrabajo->setCellValue("C".$renglon,"");
+            $hojaTrabajo->setCellValue("D".$renglon,"");
+            $hojaTrabajo->setCellValue("E".$renglon,"");
+            $hojaTrabajo->setCellValue("F".$renglon,"");
+            $hojaTrabajo->setCellValue("G".$renglon,"");
+            $hojaTrabajo->setCellValue("H".$renglon,"");
+            $hojaTrabajo->setCellValue("I".$renglon,"");
+            $hojaTrabajo->setCellValue("J".$renglon,"Total");
+            $hojaTrabajo->setCellValue("K".$renglon,"General");
+            $hojaTrabajo->setCellValue("L".$renglon,$sumTET);
+            $hojaTrabajo->setCellValue("M".$renglon,$sumPorTotalCalidad);
+            $hojaTrabajo->setCellValue("N".$renglon,$sumPorTotalPerdida);
+            
+        
+//        exit();
     //Crear el archivo de reporte en excel
     $escribir=  PHPExcel_IOFactory::createWriter($excel,"Excel2007");
     
@@ -163,10 +290,4 @@ class Excel extends CI_Controller{
     exit;
 
    }
-   
-   
-    
 }
-
-
-

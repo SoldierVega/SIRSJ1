@@ -46,7 +46,7 @@
                                         echo "<a class = 'fa fa-trash-o fa-lg' href='$base/cuerpo/delete/" . $obj->getIdCuerpo() . "'></a>";
 
                                         echo '</TD><TD>';
-                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/cuerpo/update/" .$obj->getIdCuerpo() . "'></a>";
+                                        echo "<a data-toggle='modal' data-target='#modalActualizar' class = 'fa fa-pencil fa-fw' href='$base/cuerpo/quer/" .$obj->getIdCuerpo() . "'></a>";
                                         echo '</TD></TR>';
                                     }
                                     echo '</table>';

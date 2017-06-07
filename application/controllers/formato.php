@@ -20,8 +20,10 @@ class formato extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('formato_model');        
     }
+    
     
     function index () {
         
@@ -44,23 +46,15 @@ class formato extends CI_Controller{
         $formato = new FormatoPojo();
         $formato->setFormato($this->input->post('formato', TRUE));
         if (empty($formato->getFormato())){
-//           $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Agrega Formato';
             $this->load->view('formato/addFormato.php',$data);
-//           $this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
         $this->formato_model->insert($formato); // Invocamos nuestro metodo de insertar
         $this->index(); // Invocalos la opción listar 
-    }
-    
-    function quer($idFormato){
-        $data['fo']=  $this->formato_model->que($idFormato);
-        //$this->load->view('/templates/header',$data);
-            $data['title_page'] = 'Actualiza Formato';
-            $this->load->view('formato/editFormato.php',$data);
-            //$this->load->view('templates/copyright.php', $data);
     }
     
     function update($idFormato){
@@ -76,10 +70,10 @@ class formato extends CI_Controller{
         }
         $formato->setFormato($this->input->post('formato', TRUE));
         if (empty($formato->getFormato())){           
-//            $this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Actualiza Formato';
             $this->load->view('formato/editFormato.php',$data);
-//            $this->load->view('templates/copyright.php', $data);
+            $this->load->view('templates/copyright.php', $data);
             
             return;
         }

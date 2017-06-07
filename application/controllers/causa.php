@@ -19,6 +19,7 @@ class causa extends CI_Controller{
     public function __construct() {
         parent::__construct();
         $this->base = $this->config->item('base_url');
+        $this->load->library(array('session'));
         $this->load->model('causa_model');        
     }
     
@@ -42,44 +43,15 @@ class causa extends CI_Controller{
         $causa = new CausaPojo();
         $causa->setTipoCausa($this->input->post('tipoCausa', TRUE));
         if (empty($causa->getTipoCausa())){
-            //$this->load->view('/templates/header');
+            $this->load->view('/templates/header');
             $data['title_page'] = 'Agregar Causa';
             $this->load->view('causa/addCausa.php',$data);
-            //$this->load->view('templates/copyright',$data);
+            $this->load->view('templates/copyright',$data);
             
             return;
         }
         $this->causa_model->insert($causa); // Invocamos nuestro metodo de insertar
         $this->index(); // Invocalos la opción listar 
-    }
-    function Buscar(){
-        $causa = new CausaPojo();
-        $causa->setDato($this->input->post('dato', TRUE));
-        $data['datos'] = $this->causa_model->Buscar($causa);
-        $data['base'] = $this->base;
-        $data['title'] = 'Datos Cuerpo';
-        $this->load->view('/templates/header',$data);
-        $this->load->view('causa/listCausa.php', $data);
-        $this->load->view('templates/copyright',$data);
-    }
-    function Lim(){
-        $causa = new CausaPojo();
-        $causa->setDato($this->input->post('dato', TRUE));
-        $data['datos'] = $this->causa_model->Lim($causa);
-        $data['base'] = $this->base;
-        $data['title'] = 'Datos Cuerpo';
-        $this->load->view('/templates/header',$data);
-        $this->load->view('causa/listCausa.php', $data);
-        $this->load->view('templates/copyright',$data);
-    }
-            
-    
-    function quer($idCausa){
-        $data['ca']=  $this->causa_model->que($idCausa);
-        //$this->load->view('/templates/header',$data);
-            $data['title_page'] = 'Actualiza Causa';
-            $this->load->view('causa/editCausa.php',$data);
-            //$this->load->view('templates/copyright.php', $data);
     }
     
     
@@ -88,13 +60,60 @@ class causa extends CI_Controller{
         $data['jquery'] = $this->jquery;
         $data = $this->causa_model->query($idCausa);
         $causa = new CausaPojo();
-     
+        foreach ($data as $dat){
+            $data['title_page'] = 'Actualizar Cuerpo';
+            $data['idCausa'] = $dat->getIdCausa();
+            $data['tipoCausa'] = $dat->getTipoCausa();
+            $causa->setIdCausa($dat->getIdCausa());
+        }
         
         $causa->setTipoCausa($this->input->post('tipoCausa', TRUE));
         if (empty($causa->getTipoCausa())){
+            
+           
+            $this->load->view('/templates/header');
+            $data['title_page'] = 'Agregar Causa';
+            $this->load->view('causa/editCausa.php',$data);
+            $this->load->view('templates/copyright.php', $data);
+            
             return;
         }
         $this->causa_model->update($causa); // Invocamos nuestro metodo de insertar
         $this->index(); // Invocalos la opción listar
+    }
+    
+    function Buscar(){
+        if($this->session->userdata('perfil') == FALSE || 
+                $this->session->userdata('perfil') != 'Administrador' 
+                and $this->session->userdata('perfil') != 'Capturista' 
+                and $this->session->userdata('perfil') != 'Consultor'){
+			redirect(base_url().'login');
+		}else{
+                    $causa = new CausaPojo();
+                    $causa->setDato($this->input->post('dato', TRUE));
+                    $data['datos'] = $this->causa_model->Buscar($causa);
+                    $data['base'] = $this->base;
+                    $data['title'] = 'Datos Cuerpo';
+                    $this->load->view('/templates/header',$data);
+                    $this->load->view('causa/listCausa.php', $data);
+                    $this->load->view('templates/copyright',$data);
+                }
+    }
+    function Lim(){
+        if($this->session->userdata('perfil') == FALSE || 
+                $this->session->userdata('perfil') != 'Administrador' 
+                and $this->session->userdata('perfil') != 'Capturista' 
+                and $this->session->userdata('perfil') != 'Consultor'){
+			redirect(base_url().'login');
+		}else{
+                    $causa = new CausaPojo();
+                    $causa->setDato($this->input->post('dato', TRUE));
+                    $data['datos'] = $this->causa_model->Lim($causa);
+                    $data['base'] = $this->base;
+                    $data['title'] = 'Datos Cuerpo';
+                    $this->load->view('/templates/header',$data);
+                    $this->load->view('causa/listCausa.php', $data);
+                    $this->load->view('templates/copyright',$data);
+                }
     }
 }

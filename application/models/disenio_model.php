@@ -46,7 +46,7 @@ class disenio_model extends CI_Model implements IModelAbastract {
         $qry = null;
         if (empty($idDisenio)){
             $qry = $this->db->query('SELECT D.idDisenio, D.nomDisenio, C.identificador AS idCuerpo '
-                                    . 'FROM disenio AS D INNER JOIN cuerpo AS C ON D.idCuerpo = C.idCuerpo LIMIT 5');
+                                    . 'FROM disenio AS D INNER JOIN cuerpo AS C ON D.idCuerpo = C.idCuerpo ORDER BY nomDisenio LIMIT 5 ');
         } else {
             $qry = $this->db->query('SELECT * FROM disenio WHERE idDisenio = ' . $idDisenio);
         }
@@ -65,6 +65,7 @@ class disenio_model extends CI_Model implements IModelAbastract {
         }
         return $data;
     }
+
     
     
     
